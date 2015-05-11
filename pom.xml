@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>Tetris</name>
-    <description>Javaohjelmoinnin harjoitustyö</description>
+    <description>Practical work in Java programming</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
