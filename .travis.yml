@@ -1,0 +1,16 @@
+language: java
+jdk:
+  - oraclejdk8
+notifications:
+  email: false
+  irc:
+    channels:
+    - "irc.stealth.net#tetrisjavalabra"
+    on_success: always
+    on_failure: always
+    use_notice: true
+    skip_join: true
+    template:
+    - '#%{build_number} %{message} (%{branch} : %{author}): %{commit_message}'
+after_success:
+  - mvn clean cobertura:cobertura coveralls:report
