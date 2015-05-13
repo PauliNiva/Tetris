@@ -4,3 +4,5 @@
 	Started timekeeping, Initial project setup (updated gitignore and readme, made the pom-file and checkstyle rules for the project).
 - 11.05.2015 18.25 - 18.45 (20 min.):
 	Added document describing the the project.
+- 13.05.2015 20.55 - 21.05 (10 min.):
+	Setting up travis, minor pom changes.
