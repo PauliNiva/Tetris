@@ -12,11 +12,11 @@ public class BlockS extends Tetrimino {
      * Puts the S shaped Tetrimino piece inside the container.
      */
     @Override
-    void setTetriminoInBoxes() {
-        boxes[2][1] = 1;
-        boxes[2][2] = 1;
-        boxes[1][2] = 1;
-        boxes[1][3] = 1;
+    void setTetriminoInCells() {
+        cells[2][1] = 1;
+        cells[2][2] = 1;
+        cells[1][2] = 1;
+        cells[1][3] = 1;
     }
 
     /**

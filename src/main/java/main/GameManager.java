@@ -1,18 +1,18 @@
 package main;
 
-import applogic.Field;
+import applogic.PlayingField;
 
 /**
  * Class for managing the game of Tetris.
  */
 public class GameManager {
 
-    private final Field field;
+    private final PlayingField playingField;
 
     /**
      * Sets up a standard sized playing field.
      */
     public GameManager() {
-        field = new Field(20, 10);
+        playingField = new PlayingField(20, 10);
     }
 }

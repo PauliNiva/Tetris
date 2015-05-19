@@ -10,3 +10,5 @@
 	General planning of the architecture and what functionality is going to be implemented this week.
 - 18.05.2015 15.00 - 17.20 (2 h. 20 min.):
 	Made all the Tetrimino-piece classes and started working on the playing field and the boxes that make up the playing field.
+- 19.05.2015 12.00 - 19.00 (7 h.):
+	Refactored already made classes, made some new ones and also started to make tests for the program.

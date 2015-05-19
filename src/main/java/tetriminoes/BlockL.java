@@ -12,11 +12,11 @@ public class BlockL extends Tetrimino {
      * Puts the L shaped Tetrimino piece inside the container.
      */
     @Override
-    void setTetriminoInBoxes() {
-        boxes[2][0] = 1;
-        boxes[1][0] = 1;
-        boxes[1][1] = 1;
-        boxes[1][2] = 1;
+    void setTetriminoInCells() {
+        cells[2][0] = 1;
+        cells[1][0] = 1;
+        cells[1][1] = 1;
+        cells[1][2] = 1;
     }
 
     /**

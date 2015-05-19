@@ -10,7 +10,7 @@ public abstract class Tetrimino {
     /**
      * Tableaux for holding a Tetrimino piece in, ergo Tetrimino piece holder.
      */
-    final int[][] boxes;
+    final int[][] cells;
 
     /**
      * Creates a new Tetrimino blocks by first making a 4 by 4 empty tableaux and then sets
@@ -19,22 +19,22 @@ public abstract class Tetrimino {
      * it does not.
      */
     Tetrimino() {
-        boxes = new int[4][4];
-        setTetriminoInBoxes();
+        cells = new int[4][4];
+        setTetriminoInCells();
     }
 
     /**
-     * Abstract method without an implementation that sets a specific Tetrimino inside the boxes tableaux.
+     * Abstract method without an implementation that sets a specific Tetrimino inside the cell tableaux.
      */
-    abstract void setTetriminoInBoxes();
+    abstract void setTetriminoInCells();
 
     /**
-     * Method that gets the layout of the Tetrimino piece inside the box.
-     * This method is used to get the orientation of the piece inside the boxes.
-     * @return boxes tableaux that contains one Tetrimino piece.
+     * Method that gets the layout of the Tetrimino piece inside the cell.
+     * This method is used to get the orientation of the piece inside the cells.
+     * @return cell tableaux that contains one Tetrimino piece.
      */
     public int[][] getLayout() {
-        return boxes;
+        return cells;
     }
 
     /**
