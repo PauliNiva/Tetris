@@ -12,3 +12,5 @@
 	Made all the Tetrimino-piece classes and started working on the playing field and the boxes that make up the playing field.
 - 19.05.2015 12.00 - 19.00 (7 h.):
 	Refactored already made classes, made some new ones and also started to make tests for the program.
+- 20.05.2015 12.00 - 18.15 (6 h. 15 min.):
+	Drew the class diagram (and refreshed my UML knowledge with reading about it), and wrote some tests.

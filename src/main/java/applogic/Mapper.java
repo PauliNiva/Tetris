@@ -45,4 +45,12 @@ public class Mapper {
         });
         return newTetriminoContainer;
     }
+
+    /**
+     * Gets the Tetrimino container;
+     * @return Cell[][] object that acts as a Tetrimino container.
+     */
+    public Cell[][] getTetriminoContainer() {
+        return this.tetriminoContainer;
+    }
 }

@@ -59,9 +59,15 @@
                 <configuration>
                     <targetClasses>
                         <param>applogic*</param>
+                        <param>tetriminoes*</param>
+                        <param>main*</param>
+                        <param>util*</param>
                     </targetClasses>
                     <targetTests>
                         <param>applogic*</param>
+                        <param>tetriminoes*</param>
+                        <param>main*</param>
+                        <param>util*</param>
                     </targetTests>
                 </configuration>
             </plugin>
