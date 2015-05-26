@@ -16,6 +16,6 @@ public class GameManagerTest {
     public void GameManagerInitializesPlayingFieldCorrectly() throws InterruptedException, ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         gameManager = new GameManager();
         PlayingFieldGUI testField = gameManager.getPlayingField();
-        Assert.assertEquals(200, testField.getHeight() * testField.getWidth());
+        Assert.assertEquals(200, testField.getPlayingField().getRows() * testField.getPlayingField().getColumns());
     }
 }

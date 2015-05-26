@@ -88,4 +88,12 @@ public class PlayingFieldGUI extends JPanel {
     public boolean gameOver() {
         return playingField.gameOver();
     }
+
+    /**
+     * Gets the playing field as a PlayingField object.
+     * @return playing field as a PlayingField object.
+     */
+    public PlayingField getPlayingField() {
+        return this.playingField;
+    }
 }
