@@ -13,10 +13,10 @@ public class BlockL extends Tetrimino {
      */
     @Override
     void setTetriminoInCells() {
-        cells[2][0] = 1;
         cells[1][0] = 1;
-        cells[1][1] = 1;
-        cells[1][2] = 1;
+        cells[0][0] = 1;
+        cells[0][1] = 1;
+        cells[0][2] = 1;
     }
 
     /**

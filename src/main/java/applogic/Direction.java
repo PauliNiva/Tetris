@@ -2,11 +2,12 @@ package applogic;
 
 /**
  * Enum for directions that a Tetromino piece can move to.
- * Sub-classes implement method that check if the move is valid
+ * Sub-classes implement method that check if the move is movementToDirectionIsValid
  * and they also implement getters for the row and column changes
  * as the piece moves.
  */
 public enum Direction {
+
     Down {
         @Override
         boolean checkIfMoveIsValid(Cell cell, PlayingField field) {
@@ -20,6 +21,7 @@ public enum Direction {
         int getColumnChange() {
             return 0;
         }},
+
     Left {
         @Override
         boolean checkIfMoveIsValid(Cell cell, PlayingField field) {
@@ -33,6 +35,7 @@ public enum Direction {
         int getColumnChange() {
             return -1;
         }},
+
     Right {
         @Override
         boolean checkIfMoveIsValid(Cell cell, PlayingField field) {

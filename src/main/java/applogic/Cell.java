@@ -38,6 +38,7 @@ public class Cell {
     public Cell setCellIsOccupied(Tetrimino tetrimino, boolean cellIsOccupied) {
         this.cellIsOccupied = cellIsOccupied;
         color = ((cellIsOccupied && tetrimino != null) ? tetrimino.getColor() : DEFAULT_EMPTY_COLOR);
+
         return this;
     }
 
@@ -107,4 +108,25 @@ public class Cell {
     public Color getDefaultEmptyColor() {
         return DEFAULT_EMPTY_COLOR;
     }
+
+
+    /**
+     * Method that checks if the occupied cell belongs to the same Tetrimino piece
+     * that is moving or another.
+     * @param object Tetrimino as an object.
+     * @return boolean value true if the cell belongs to the same Tetrimino, false otherwise.
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        Cell cell = (Cell) object;
+
+        if (column != cell.column) return false;
+        if (row != cell.row) return false;
+
+        return true;
+    }
+
 }

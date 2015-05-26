@@ -1,5 +1,6 @@
 package applogic;
 
+import static applogic.Direction.*;
 import tetriminoes.Tetrimino;
 import util.TetriminoGenerator;
 
@@ -26,6 +27,7 @@ public class PlayingField {
     private TetriminoGenerator tetriminoGenerator;
     private boolean gameOver = false;
     private Mapper mapper;
+    private List<TickListener> tickListeners;
 
     /**
      * Sets up the playing field.
@@ -39,16 +41,18 @@ public class PlayingField {
         tetriminoGenerator = new TetriminoGenerator();
         setNextTetrimino();
         mapper = new Mapper(this);
+        tickListeners = new ArrayList<>();
     }
 
     /**
-     * Creates the cells into the playing field.
+     * Creates the cells into the playing field. Overrides a method
+     * in util.CellCallBack.
      * @param rows number of rows that the playing field is going to have.
      * @param columns number of columns that the playing field is going to have.
      */
     public void createCells(int rows, int columns) {
         cellsInPlayingField = new Cell[rows][columns];
-        forEachCell(cellsInPlayingField, (row, col) -> cellsInPlayingField[row][col] = (new Cell(row, col)));
+        forEachCell(cellsInPlayingField, (row, column) -> cellsInPlayingField[row][column] = (new Cell(row, column)));
     }
 
     /**
@@ -83,9 +87,11 @@ public class PlayingField {
      */
     public List<Cell> getAllCellsInPlayingField() {
         List<Cell> cellList = new ArrayList<>();
+
         for (Cell[] row : cellsInPlayingField) {
             cellList.addAll(Arrays.asList(row));
         }
+
         return cellList;
     }
 
@@ -117,6 +123,7 @@ public class PlayingField {
                 }
             }
         }
+
         return true;
     }
 
@@ -148,4 +155,106 @@ public class PlayingField {
     public int getSTART_COLUMN() {
         return START_COLUMN;
     }
+
+    /**
+     * Gets cells from a specific row as a list.
+     * @param row from which the cells are to be put in list.
+     * @return cells from a specific row as a list.
+     */
+    private List<Cell> getCellsInRow(int row) {
+        List<Cell> cellsInRow = new ArrayList<>();
+
+        for (Cell cell : cellsInPlayingField[row]) {
+            if (cell.getRow() == row) cellsInRow.add(cell);
+        }
+
+        return cellsInRow;
+    }
+
+    /**
+     * Method that removes a specified row.
+     * @param rowToBeRemoved that is to be removed.
+     */
+    private void removeRow(int rowToBeRemoved) {
+        for (int row = rowToBeRemoved; row > 0; row--) {
+            for (Cell cell : getCellsInRow(row)) {
+                Cell cellAbove = getCell(row - 1, cell.getColumn());
+                if (getMovingTetriminoContainer().contains(cellAbove)) {
+                    cell.setCellIsOccupied(false);
+                    cell.setColor(cell.getDefaultEmptyColor());
+                } else {
+                    cell.setCellIsOccupied(cellAbove.getIsCellOccupied());
+                    cell.setColor(cellAbove.getColor());
+                }
+            }
+        }
+    }
+
+    /**
+     * Method that removes the complete rows from the playing field.
+     */
+    private void removeCompletedRows() {
+        for (int row = 0; row < rows; row++) {
+            boolean rowComplete = true;
+            for (Cell cell : getCellsInRow(row)) {
+                if (!cell.getIsCellOccupied()) rowComplete = false;
+            }
+            if (rowComplete) {
+                removeRow(row);
+            }
+        }
+    }
+
+    /**
+     * Method for getting the falling Tetrimino container as a list of individual cells.
+     * @return List of cells.
+     */
+    public List<Cell> getMovingTetriminoContainer() {
+        return mapper.getTetriminoContainerAsList();
+    }
+
+    /**
+     * Moves the Tetrimino to the direction specified by a parameter.
+     * @param direction where the Tetrimino piece is to be moved.
+     */
+    public void moveTetrimino(Direction direction) {
+        mapper.moveTetriminoContainer(direction);
+    }
+
+    /**
+     * Gets the information if the game is over or not.
+     * @return boolean value true is the game is over, false if not.
+     */
+    public boolean gameOver() {
+        return gameOver;
+    }
+
+    /**
+     * Adds a new Tetrimino piece into the playing field and
+     * set the next Tetrimino that is going to appear.
+     */
+    public void addNewTetrimino() {
+        addNewTetriminoToField(nextTetrimino);
+        setNextTetrimino();
+    }
+
+    /**
+     * Moves the game cycle(the internal clock of the game) ahead by one unit
+     * by moving the tetrimo piece.
+     * if the the tetrimino cannot move in that given cycle, the method calls
+     * for a new Tetrimino piece and removal of completed rows.
+     * Lastly it adds marking to a list that game has gone ahead one cycle.
+     */
+    public void tick() {
+        if (!mapper.movementToDirectionIsValid(Direction.Down)) {
+            addNewTetrimino();
+            removeCompletedRows();
+        }
+
+        moveTetrimino(Down);
+
+        for (TickListener listener : tickListeners){
+            listener.playingFieldHasTicked();
+            }
+        }
 }

@@ -14,3 +14,9 @@
 	Refactored already made classes, made some new ones and also started to make tests for the program.
 - 20.05.2015 12.00 - 18.15 (6 h. 15 min.):
 	Drew the class diagram (and refreshed my UML knowledge with reading about it), and wrote some tests.
+- 24.05.2015 09.00 - 17.00 (8 h.):
+	Made GUI for cells and playing field and added bunch of stuff to another classes.
+- 25.05.2015 12.00 - 17.00 (5 h.):
+	Spent all day debugging why Tetriminoes would not fall down in playing field as they should.
+- 26.05.2015 12.00 - 18.00 (6 h.):
+	Pondered why it's still not working. Had an "eureka" moment and then pondered how to implement the solution and finally fixed the problem.
