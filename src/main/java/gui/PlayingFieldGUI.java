@@ -50,7 +50,7 @@ public class PlayingFieldGUI extends JPanel {
      * Moves the game cycle(the internal clock of the game)
      * ahead by one unit and then repaints the playing field.
      */
-    public void tick(){
+    public void tick() {
         playingField.tick();
         repaintPlayingField();
     }
@@ -59,7 +59,7 @@ public class PlayingFieldGUI extends JPanel {
      * Method for repainting the playing field.
      */
     public void repaintPlayingField() {
-        for (CellGUI cell : getCellGUIs()){
+        for (CellGUI cell : getCellGUIs()) {
             cell.recolor();
         }
     }

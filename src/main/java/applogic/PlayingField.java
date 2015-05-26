@@ -2,6 +2,7 @@ package applogic;
 
 import static applogic.Direction.*;
 import tetriminoes.Tetrimino;
+import util.CellCallback;
 import util.TetriminoGenerator;
 
 import java.util.ArrayList;
@@ -52,7 +53,9 @@ public class PlayingField {
      */
     public void createCells(int rows, int columns) {
         cellsInPlayingField = new Cell[rows][columns];
-        forEachCell(cellsInPlayingField, (row, column) -> cellsInPlayingField[row][column] = (new Cell(row, column)));
+        forEachCell(cellsInPlayingField, (row, column) -> {
+            cellsInPlayingField[row][column] = (new Cell(row, column));
+        });
     }
 
     /**
@@ -77,7 +80,7 @@ public class PlayingField {
      * @param column at which column the specific box resides.
      * @return the box which resides at the corresponding coordinates.
      */
-    public Cell getCell(int row, int column){
+    public Cell getCell(int row, int column) {
         return cellsInPlayingField[row][column];
     }
 
@@ -165,7 +168,9 @@ public class PlayingField {
         List<Cell> cellsInRow = new ArrayList<>();
 
         for (Cell cell : cellsInPlayingField[row]) {
-            if (cell.getRow() == row) cellsInRow.add(cell);
+            if (cell.getRow() == row) {
+                cellsInRow.add(cell);
+            }
         }
 
         return cellsInRow;
@@ -197,7 +202,9 @@ public class PlayingField {
         for (int row = 0; row < rows; row++) {
             boolean rowComplete = true;
             for (Cell cell : getCellsInRow(row)) {
-                if (!cell.getIsCellOccupied()) rowComplete = false;
+                if (!cell.getIsCellOccupied()) {
+                    rowComplete = false;
+                }
             }
             if (rowComplete) {
                 removeRow(row);
@@ -253,8 +260,8 @@ public class PlayingField {
 
         moveTetrimino(Down);
 
-        for (TickListener listener : tickListeners){
+        for (TickListener listener : tickListeners) {
             listener.playingFieldHasTicked();
-            }
         }
+    }
 }

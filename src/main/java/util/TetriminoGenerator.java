@@ -15,38 +15,38 @@ public class TetriminoGenerator {
      * the corresponding Tetrimino piece.
      */
     public enum Tetriminoes {
-        BlockI{
-            public Tetrimino getTetrimino(){
+        BlockI {
+            public Tetrimino getTetrimino() {
                 return new BlockI();
             }
         },
-        BlockJ{
-            public Tetrimino getTetrimino(){
+        BlockJ {
+            public Tetrimino getTetrimino() {
                 return new BlockJ();
             }
         },
-        BlockL{
-            public Tetrimino getTetrimino(){
+        BlockL {
+            public Tetrimino getTetrimino() {
                 return new BlockL();
             }
         },
-        BlockO{
-            public Tetrimino getTetrimino(){
+        BlockO {
+            public Tetrimino getTetrimino() {
                 return new BlockO();
             }
         },
-        BlockS{
-            public Tetrimino getTetrimino(){
+        BlockS {
+            public Tetrimino getTetrimino() {
                 return new BlockS();
             }
         },
-        BlockT{
-            public Tetrimino getTetrimino(){
+        BlockT {
+            public Tetrimino getTetrimino() {
                 return new BlockT();
             }
         },
-        BlockZ{
-            public Tetrimino getTetrimino(){
+        BlockZ {
+            public Tetrimino getTetrimino() {
                 return new BlockZ();
             }
         };

@@ -20,7 +20,8 @@ public enum Direction {
         @Override
         int getColumnChange() {
             return 0;
-        }},
+        }
+    },
 
     Left {
         @Override
@@ -34,7 +35,8 @@ public enum Direction {
         @Override
         int getColumnChange() {
             return -1;
-        }},
+        }
+    },
 
     Right {
         @Override
@@ -48,7 +50,8 @@ public enum Direction {
         @Override
         int getColumnChange() {
             return 1;
-        }};
+        }
+    };
 
     abstract boolean checkIfMoveIsValid(Cell cell, PlayingField field);
 

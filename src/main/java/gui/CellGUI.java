@@ -10,7 +10,7 @@ import java.awt.*;
 /**
  * Class for GUI for the cells of the playing field.
  */
-public class CellGUI extends JPanel{
+public class CellGUI extends JPanel {
 
     private Cell cell;
     private static int CELL_SIZE = 100;
@@ -23,7 +23,7 @@ public class CellGUI extends JPanel{
         this.cell = cell;
         setBackground(cell.getDefaultEmptyColor());
         setBorder(new LineBorder(Color.black));
-        setSize(CELL_SIZE,CELL_SIZE);
+        setSize(CELL_SIZE, CELL_SIZE);
         setVisible(true);
     }
 
@@ -39,14 +39,14 @@ public class CellGUI extends JPanel{
      * Method that gets the color of the cell.
      * @return color of the cell.
      */
-    public Color getColor(){
+    public Color getColor() {
         return underlying().getColor();
     }
 
     /**
      * Recolors the cells.
      */
-    public void recolor(){
+    public void recolor() {
         setBackground(underlying().getColor());
     }
 
