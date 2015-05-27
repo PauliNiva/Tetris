@@ -10,10 +10,12 @@ import tetriminoes.Tetrimino;
 public class PlayingFieldTest {
 
     PlayingField testField;
+    PlayingField smallTestField;
 
     @Before
     public void createPlayingField() {
         testField = new PlayingField(20, 10);
+        smallTestField = new PlayingField(5, 10);
     }
 
     @Test
@@ -62,6 +64,17 @@ public class PlayingFieldTest {
         testField.tick();
         Assert.assertNotNull(testField.getMapper().getTetrimino());
         Assert.assertNotSame(testField.getMapper().getTetrimino(), firstTetrimino);
+    }
+
+    @Test
+    public void newPieceDoesNotFitInFieldTest() {
+        Tetrimino firstTetrimino = new BlockO();
+        smallTestField.addNewTetriminoToField(firstTetrimino);
+        for (int i = 0; i < 15; i++) {
+            smallTestField.tick();
+        }
+        Assert.assertEquals(smallTestField.getMapper().getTetrimino(), firstTetrimino);
+        Assert.assertEquals(smallTestField.gameOver(), true);
     }
 
     private int fieldHeight() {

@@ -62,12 +62,14 @@
                         <param>tetriminoes*</param>
                         <param>main*</param>
                         <param>util*</param>
+                        <param>gui*</param>
                     </targetClasses>
                     <targetTests>
                         <param>applogic*</param>
                         <param>tetriminoes*</param>
                         <param>main*</param>
                         <param>util*</param>
+                        <param>gui*</param>
                     </targetTests>
                 </configuration>
             </plugin>
