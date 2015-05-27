@@ -20,3 +20,5 @@
 	Spent all day debugging why Tetriminoes would not fall down in playing field as they should.
 - 26.05.2015 12.00 - 18.00 (6 h.):
 	Pondered why it's still not working. Had an "eureka" moment and then pondered how to implement the solution and finally fixed the problem.
+- 27.05.2015 12.00 - 16.00 (4 h.):
+	Spent whole day making JUnit tests.
