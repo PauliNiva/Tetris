@@ -13,7 +13,7 @@ import java.awt.*;
 public class CellGUI extends JPanel {
 
     private Cell cell;
-    private static int CELL_SIZE = 100;
+    private static final int CELL_SIZE = 100;
 
     /**
      * Creates CellGUI object for the instance of a Cell object

@@ -4,6 +4,8 @@ package applogic;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import tetriminoes.BlockO;
+import tetriminoes.Tetrimino;
 
 public class PlayingFieldTest {
 
@@ -47,6 +49,19 @@ public class PlayingFieldTest {
             tetriminoExists = true;
         }
         Assert.assertTrue(tetriminoExists);
+    }
+
+    @Test
+    public void addNewTetriminoWhenMovingTetriminoStops() {
+        Tetrimino firstTetrimino = new BlockO();
+        testField.addNewTetriminoToField(firstTetrimino);
+        for (int i = 0; i < 18; i++) {
+            testField.tick();
+        }
+        Assert.assertEquals(firstTetrimino, testField.getMapper().getTetrimino());
+        testField.tick();
+        Assert.assertNotNull(testField.getMapper().getTetrimino());
+        Assert.assertNotSame(testField.getMapper().getTetrimino(), firstTetrimino);
     }
 
     private int fieldHeight() {

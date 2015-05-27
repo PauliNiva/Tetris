@@ -2,7 +2,6 @@ package applogic;
 
 import static applogic.Direction.*;
 import tetriminoes.Tetrimino;
-import util.CellCallback;
 import util.TetriminoGenerator;
 
 import java.util.ArrayList;
@@ -21,8 +20,8 @@ public class PlayingField {
     private static final int END_ROW = 3;
     private static final int START_COLUMN = 3;
     private static final int END_COLUMN = 6;
-    private final int rows;
-    private final int columns;
+    private int rows;
+    private int columns;
     private Cell[][] cellsInPlayingField;
     private Tetrimino nextTetrimino;
     private TetriminoGenerator tetriminoGenerator;
@@ -263,5 +262,13 @@ public class PlayingField {
         for (TickListener listener : tickListeners) {
             listener.playingFieldHasTicked();
         }
+    }
+
+    /**
+     * Gets the Mapper object that is associated with playing field.
+     * @return Mapper object
+     */
+    public Mapper getMapper() {
+        return this.mapper;
     }
 }

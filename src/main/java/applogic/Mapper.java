@@ -201,4 +201,12 @@ public class Mapper {
     public int getTotalMapColumns() {
         return playingField.getColumns();
     }
+
+    /**
+     * Gets the current Tetrimino piece.
+     * @return current Tetrimino piece.
+     */
+    public Tetrimino getTetrimino() {
+        return this.tetrimino;
+    }
 }
