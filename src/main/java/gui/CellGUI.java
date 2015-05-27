@@ -2,6 +2,7 @@ package gui;
 
 
 import applogic.Cell;
+import applogic.PlayingField;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -21,7 +22,7 @@ public class CellGUI extends JPanel {
      */
     public CellGUI(Cell cell) {
         this.cell = cell;
-        setBackground(cell.getDefaultEmptyColor());
+        setBackground(PlayingField.getDEFAULT_EMPTY_COLOR());
         setBorder(new LineBorder(Color.black));
         setSize(CELL_SIZE, CELL_SIZE);
         setVisible(true);

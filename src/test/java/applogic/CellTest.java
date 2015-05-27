@@ -10,7 +10,7 @@ public class CellTest {
     @Test
     public void ColorIsSetAndGetCorrectly() {
         Cell testCell = new Cell(4, 4);
-        Assert.assertEquals(Color.white, testCell.getDefaultEmptyColor());
+        Assert.assertEquals(PlayingField.getDEFAULT_EMPTY_COLOR(), testCell.getColor());
         testCell.setColor(Color.magenta);
         Assert.assertEquals(Color.magenta, testCell.getColor());
     }

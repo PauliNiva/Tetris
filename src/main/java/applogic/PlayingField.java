@@ -4,6 +4,7 @@ import static applogic.Direction.*;
 import tetriminoes.Tetrimino;
 import util.TetriminoGenerator;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,7 @@ public class PlayingField {
     private static final int END_ROW = 3;
     private static final int START_COLUMN = 3;
     private static final int END_COLUMN = 6;
+    private static final Color DEFAULT_EMPTY_COLOR = Color.white;
     private int rows;
     private int columns;
     private Cell[][] cellsInPlayingField;
@@ -185,7 +187,7 @@ public class PlayingField {
                 Cell cellAbove = getCell(row - 1, cell.getColumn());
                 if (getMovingTetriminoContainer().contains(cellAbove)) {
                     cell.setCellIsOccupied(false);
-                    cell.setColor(cell.getDefaultEmptyColor());
+                    cell.setColor(getDEFAULT_EMPTY_COLOR());
                 } else {
                     cell.setCellIsOccupied(cellAbove.getIsCellOccupied());
                     cell.setColor(cellAbove.getColor());
@@ -270,5 +272,13 @@ public class PlayingField {
      */
     public Mapper getMapper() {
         return this.mapper;
+    }
+
+    /**
+     * Gets the default empty color.
+     * @return Color white.
+     */
+    public static Color getDEFAULT_EMPTY_COLOR() {
+        return DEFAULT_EMPTY_COLOR;
     }
 }

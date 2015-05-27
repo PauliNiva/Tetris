@@ -12,7 +12,7 @@ public class Cell {
     private final int row;
     private final int column;
     private Color color;
-    private static final Color DEFAULT_EMPTY_COLOR = Color.white;
+
     private boolean cellIsOccupied;
 
     /**
@@ -26,6 +26,7 @@ public class Cell {
     public Cell(int row, int column) {
         this.row = row;
         this.column = column;
+        color = PlayingField.getDEFAULT_EMPTY_COLOR();
     }
 
     /**
@@ -37,7 +38,7 @@ public class Cell {
      */
     public Cell setCellIsOccupied(Tetrimino tetrimino, boolean cellIsOccupied) {
         this.cellIsOccupied = cellIsOccupied;
-        color = ((cellIsOccupied && tetrimino != null) ? tetrimino.getColor() : DEFAULT_EMPTY_COLOR);
+        color = ((cellIsOccupied && tetrimino != null) ? tetrimino.getColor() : PlayingField.getDEFAULT_EMPTY_COLOR());
 
         return this;
     }
@@ -102,15 +103,6 @@ public class Cell {
     }
 
     /**
-     * Gets the default empty color.
-     * @return Color white.
-     */
-    public Color getDefaultEmptyColor() {
-        return DEFAULT_EMPTY_COLOR;
-    }
-
-
-    /**
      * Method that checks if the occupied cell belongs to the same Tetrimino piece
      * that is moving or another.
      * @param object Tetrimino as an object.
@@ -136,5 +128,4 @@ public class Cell {
 
         return true;
     }
-
-}
+ }
