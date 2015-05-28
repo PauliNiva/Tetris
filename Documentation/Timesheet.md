@@ -22,3 +22,5 @@
 	Pondered why it's still not working. Had an "eureka" moment and then pondered how to implement the solution and finally fixed the problem.
 - 27.05.2015 12.00 - 16.00 (4 h.):
 	Spent whole day making JUnit tests.
+- 28.05.2015 16.30 - 17.05 (35 min.):
+	Updated the class diagram to correspond with the changes that were made during a week.
