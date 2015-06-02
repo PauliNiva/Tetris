@@ -181,7 +181,7 @@ public class PlayingField {
      * Method that removes a specified row.
      * @param rowToBeRemoved that is to be removed.
      */
-    private void removeRow(int rowToBeRemoved) {
+    public void removeRow(int rowToBeRemoved) {
         for (int row = rowToBeRemoved; row > 0; row--) {
             for (Cell cell : getCellsInRow(row)) {
                 Cell cellAbove = getCell(row - 1, cell.getColumn());
@@ -199,7 +199,7 @@ public class PlayingField {
     /**
      * Method that removes the complete rows from the playing field.
      */
-    private void removeCompletedRows() {
+    public void removeCompletedRows() {
         for (int row = 0; row < rows; row++) {
             boolean rowComplete = true;
             for (Cell cell : getCellsInRow(row)) {

@@ -24,3 +24,8 @@
 	Spent whole day making JUnit tests.
 - 28.05.2015 16.30 - 17.05 (35 min.):
 	Updated the class diagram to correspond with the changes that were made during a week.
+- 02.06.2015 12.00 - 21.15 (9 h. 15 min.):
+	After being sick for a couple of days, it's back to the drawing board. Made a listener for user inputs (so the user can move tetriminoes
+	around) and tests for it. Spent half a day wondering and swearing why robot for simulating keystrokes in tests wasn'tworking even
+	though it should have. Found out by accident that the problem was that the thread.sleep between key.pressed and key.released wasn't
+	adequately long (value was 50), so the key press didn't have enough time to be registered.

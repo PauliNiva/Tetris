@@ -1,20 +1,25 @@
 package main;
 
 
-import applogic.PlayingField;
 import gui.PlayingFieldGUI;
-import org.junit.Assert;
-import org.junit.Test;
 
-import javax.swing.*;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import java.awt.*;
 
 public class GameManagerTest {
 
     GameManager gameManager;
+    Robot robot;
+
+    @Before
+    public void createPlayingField() throws AWTException, InterruptedException {
+        gameManager = new GameManager();
+    }
 
     @Test
     public void GameManagerInitializesPlayingFieldCorrectly() throws InterruptedException {
-        gameManager = new GameManager();
         PlayingFieldGUI testField = gameManager.getPlayingField();
         Assert.assertEquals(200, testField.getPlayingField().getRows() * testField.getPlayingField().getColumns());
     }

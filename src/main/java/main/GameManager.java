@@ -1,6 +1,7 @@
 package main;
 
 
+import applogic.UserInputListener;
 import gui.PlayingFieldGUI;
 
 import javax.swing.*;
@@ -38,6 +39,7 @@ public class GameManager {
         app.setLocation(800, 400);
         app.setVisible(true);
         app.setTitle("Yet Another Tetris Clone");
+        app.addKeyListener(new UserInputListener(this.playingFieldGUI));
     }
 
     /**
@@ -60,5 +62,13 @@ public class GameManager {
      */
     public PlayingFieldGUI getPlayingField() {
         return playingFieldGUI;
+    }
+
+    /**
+     * Method that gets the JFrame.
+     * @return JFrame of the game.
+     */
+    public JFrame getApp() {
+        return app;
     }
 }
