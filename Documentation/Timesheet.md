@@ -29,3 +29,7 @@
 	around) and tests for it. Spent half a day wondering and swearing why robot for simulating keystrokes in tests wasn'tworking even
 	though it should have. Found out by accident that the problem was that the thread.sleep between key.pressed and key.released wasn't
 	adequately long (value was 50), so the key press didn't have enough time to be registered.
+- 03.06.2015 10.00 - 16.00 (6 h.):
+	Added a functionality for rotating the Tetrimino pieces and made few basic tests for it. Because Mapper class was getting quite inflated,
+	I refactored Rotation functionality to three classes. Some I left in mapper, actual rotation of Tetrimino containers to a new class called
+	Rotators and validation methods for rotating the piece to a new class called RotationValidator.

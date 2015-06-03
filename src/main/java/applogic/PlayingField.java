@@ -281,4 +281,20 @@ public class PlayingField {
     public static Color getDEFAULT_EMPTY_COLOR() {
         return DEFAULT_EMPTY_COLOR;
     }
+
+    /**
+     * Method that tells the mapper to rotate the Tetrimino piece clockwise.
+     * @param rotation Clockwise.
+     */
+    public void rotateTetriminoClockwise(Rotation rotation) {
+        mapper.rotateTetriminoContainer(rotation);
+    }
+
+    /**
+     * Method that tells the mapper to rotate the Tetrimino piece counterclockwise.
+     * @param rotation Counterclockwise.
+     */
+    public void rotateTetriminoCounterClockwise(Rotation rotation) {
+        mapper.rotateTetriminoContainer(rotation);
+    }
 }

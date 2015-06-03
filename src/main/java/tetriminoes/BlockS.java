@@ -15,8 +15,8 @@ public class BlockS extends Tetrimino {
     void setTetriminoInCells() {
         cells[1][1] = 1;
         cells[1][2] = 1;
-        cells[0][2] = 1;
-        cells[0][3] = 1;
+        cells[2][1] = 1;
+        cells[2][0] = 1;
     }
 
     /**

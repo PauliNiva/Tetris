@@ -55,11 +55,11 @@ public class UserInputListenerTest {
         playingField.moveTetrimino(Direction.Left);
         assertTetriminoHasMoved(startCells, 3, -3);
         playingField.moveTetrimino(Direction.Left);
-        assertTetriminoHasMoved(startCells, 3, -3); //checks that tetrimino does not move out of the field from left
+        assertTetriminoHasMoved(startCells, 3, -4);
         for (int i = 0; i < 15; i++) {
             playingField.moveTetrimino(Direction.Right);
         }
-        assertTetriminoHasMoved(startCells, 3, 4); //checks that tetrimino does not move out of the field from right
+        assertTetriminoHasMoved(startCells, 3, 4);
         playingField.tick();
         assertTetriminoHasMoved(startCells, 4, 4);
     }
@@ -76,7 +76,7 @@ public class UserInputListenerTest {
         }
         robot.keyRelease(KeyEvent.VK_SPACE);
         System.out.println();
-        assertTetriminoHasMovedWithKeys(startCells, 18, 0);
+        assertTetriminoHasMovedWithKeys(startCells, 17, 0);
     }
 
     @Test

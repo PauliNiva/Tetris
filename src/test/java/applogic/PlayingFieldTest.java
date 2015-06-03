@@ -57,7 +57,7 @@ public class PlayingFieldTest {
     public void addNewTetriminoWhenMovingTetriminoStops() {
         Tetrimino firstTetrimino = new BlockO();
         testField.addNewTetriminoToField(firstTetrimino);
-        for (int i = 0; i < 18; i++) {
+        for (int i = 0; i < 17; i++) {
             testField.tick();
         }
         Assert.assertEquals(firstTetrimino, testField.getMapper().getTetrimino());

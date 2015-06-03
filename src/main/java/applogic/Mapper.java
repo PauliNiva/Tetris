@@ -16,6 +16,8 @@ public class Mapper {
     private PlayingField playingField;
     private Tetrimino tetrimino;
     private Cell[][] tetriminoContainer;
+    private Rotator rotator;
+    private RotationValidator rotationValidator;
     int rowFixPoint; // cell at the x-coordinate 0 of the Tetrimino container.
     int columnFixPoint; // cell at the y-coordinate 0 of the Tetrimino container.
 
@@ -25,6 +27,7 @@ public class Mapper {
      */
     public Mapper(PlayingField playingField) {
         this.playingField = playingField;
+        rotator = new Rotator();
     }
 
     /**
@@ -209,4 +212,60 @@ public class Mapper {
     public Tetrimino getTetrimino() {
         return this.tetrimino;
     }
+
+    /**
+     * Method that initializes rotation of the Tetrimino container. First it check if the
+     * rotation is valid and then is sets up a new layout for the rotated
+     * Tetrimino as it rotates the piece at the same time and lastly it sets up a container for it.
+     * @param rotation Direction of the rotation (either clockwise or counterclockwise).
+     */
+    public void rotateTetriminoContainer(Rotation rotation) {
+        if (rotationIsValid(rotation)) {
+            setNewTetriminoLayout(getRotatedTetriminoLayout(rotation));
+
+            setNewTetriminoContainer(getCellsInPlayingFieldForNewTetrimino());
+        }
+    }
+
+    /**
+     * Rotates the Tetrimino and gets a new layout for it after the rotation.
+     * @param rotation Direction of the rotation.
+     * @return the rotated matrix which contains the layout of the Tetrimino piece
+     * in the Tetrimino container.
+     */
+    private int[][] getRotatedTetriminoLayout(Rotation rotation) {
+            return rotator.rotate(rotation, tetrimino.getLayout());
+    }
+
+    private Cell[][] getCellsInPlayingFieldForNewTetrimino() {
+        return containerForNewTetrimino(rowFixPoint, columnFixPoint);
+    }
+
+    boolean rotationIsValid(Rotation rotation) {
+        rotationValidator = new RotationValidator(this.playingField, this.tetrimino, this);
+        int[][] newMatrix = getRotatedTetriminoLayoutArray(rotation);
+
+        return (!rotationValidator.tetriminoWillRotateOffPlayingfield(newMatrix) &&
+                !rotationValidator.rotatedTetriminoWillOccupyAnOccupiedCell(newMatrix));
+    }
+
+    private void setNewTetriminoLayout(final int[][] newTetriminoMatrix) {
+        final int[][] currentMatrix = tetrimino.getLayout();
+        forEachCell(currentMatrix, (row, column) -> {
+            currentMatrix[row][column] = newTetriminoMatrix[row][column];
+        });
+    }
+
+    void setNewTetriminoContainer(Cell[][] tetriminoContainerToBeSet) {
+        setAllCells(tetriminoContainer, false);
+        setAllCells(tetriminoContainerToBeSet, true);
+        tetriminoContainer = tetriminoContainerToBeSet;
+    }
+
+    protected int[][] getRotatedTetriminoLayoutArray(Rotation rotation) {
+        return getRotatedTetriminoLayout(rotation);
+    }
+
+
+
 }
