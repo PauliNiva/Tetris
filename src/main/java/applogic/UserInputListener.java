@@ -14,7 +14,7 @@ public class UserInputListener implements KeyListener {
 
     /**
      * Creates the object that listens to the inputs made by user.
-     * @param playingFieldGUI
+     * @param playingFieldGUI playing field from which the input is listened from.
      */
     public UserInputListener(PlayingFieldGUI playingFieldGUI) {
         this.playingFieldGUI = playingFieldGUI;
@@ -22,7 +22,7 @@ public class UserInputListener implements KeyListener {
 
     /**
      * Empty method, here because of the implementation of KeyListener.
-     * @param event
+     * @param event KeyEvent (the key that was pressed (or the pressing was simulated) on keyboard).
      */
     @Override
     public void keyTyped(KeyEvent event) {
@@ -61,7 +61,7 @@ public class UserInputListener implements KeyListener {
 
     /**
      * Empty method, here because of the implementation of KeyListener.
-     * @param event
+     * @param event KeyEvent (the key that was pressed (or the pressing was simulated) on keyboard).
      */
     @Override
     public void keyReleased(KeyEvent event) {

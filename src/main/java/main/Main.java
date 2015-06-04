@@ -13,7 +13,7 @@ public class Main {
     /**
      * Main method starts the program by calling start() method from a Starter object.
      * @param args Commandline arguments that are associated with the main method.
-     * @throws InterruptedException
+     * @throws InterruptedException is thrown if Thread.sleep() method is interrupted.
      */
     public static void main(String[] args) throws InterruptedException {
         starter.start(args);

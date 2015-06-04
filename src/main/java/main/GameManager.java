@@ -19,7 +19,7 @@ public class GameManager {
      * Sets up a standard sized playing field and new JFrame
      * and parameters of to it. Then adds the playing field to
      * JFrame and starts the game.
-     * @throws InterruptedException
+     * @throws InterruptedException is thrown if Thread.sleep() method is interrupted.
      */
     public GameManager() throws InterruptedException {
         playingFieldGUI = new PlayingFieldGUI(20, 10);

@@ -54,8 +54,9 @@ public class RotationValidator {
 
     /**
      * Utility method for checking if the Tetrimino would rotate off the right edge of the playing field.
-     * @param newMatrix
-     * @return
+     * @param newMatrix Matrix that contains the layout of the rotated Tetrimino container.
+     * @return boolean value true is the rotating Tetrimino would move off the field from right edge,
+     * false otherwise.
      */
     public boolean tetriminoWillRotateOffRightEdge(int[][] newMatrix) {
         return (tetriminoWillMoveToRight(newMatrix) && tetriminoIsInColumn(playingField.getColumns() - 1));
@@ -63,8 +64,9 @@ public class RotationValidator {
 
     /**
      * Utility method for checking if the Tetrimino would rotate off the left edge of the playing field.
-     * @param newMatrix
-     * @return
+     * @param newMatrix Matrix that contains the layout of the rotated Tetrimino container.
+     * @return boolean value true is the rotating Tetrimino would move off the field from left edge,
+     * false otherwise.
      */
     private boolean tetriminoWillRotateOffLeftEdge(int[][] newMatrix) {
         return (tetriminoWillMoveToLeft(newMatrix) && tetriminoIsInColumn(0));
