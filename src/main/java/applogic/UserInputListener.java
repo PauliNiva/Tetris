@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 /**
  * Class for listening the inputs made by user.
  */
-public class UserInputListener implements KeyListener{
+public class UserInputListener implements KeyListener {
 
     private final PlayingFieldGUI playingFieldGUI;
 

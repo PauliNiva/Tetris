@@ -63,12 +63,4 @@ public class GameManager {
     public PlayingFieldGUI getPlayingField() {
         return playingFieldGUI;
     }
-
-    /**
-     * Method that gets the JFrame.
-     * @return JFrame of the game.
-     */
-    public JFrame getApp() {
-        return app;
-    }
 }

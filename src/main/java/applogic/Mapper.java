@@ -237,18 +237,33 @@ public class Mapper {
             return rotator.rotate(rotation, tetrimino.getLayout());
     }
 
+    /**
+     * Gets the cells for a rotated Tetrimino container.
+     * @return new Tetrimino container that holds the rotated Tetrimino.
+     */
     private Cell[][] getCellsInPlayingFieldForNewTetrimino() {
         return containerForNewTetrimino(rowFixPoint, columnFixPoint);
     }
 
-    boolean rotationIsValid(Rotation rotation) {
+    /**
+     * Method that checks if the rotation of the Tetrimino is valid. ie. rotated Tetrimino
+     * would not end up occupying an already occupied cell or would not move out of playing field
+     * bounds as a result of the rotation.
+     * @param rotation Direction of the rotation.
+     * @return boolean value true, if the rotation is valid, false otherwise.
+     */
+    private boolean rotationIsValid(Rotation rotation) {
         rotationValidator = new RotationValidator(this.playingField, this.tetrimino, this);
-        int[][] newMatrix = getRotatedTetriminoLayoutArray(rotation);
+        int[][] newMatrix = getRotatedTetriminoLayout(rotation);
 
         return (!rotationValidator.tetriminoWillRotateOffPlayingfield(newMatrix) &&
                 !rotationValidator.rotatedTetriminoWillOccupyAnOccupiedCell(newMatrix));
     }
 
+    /**
+     * Sets a new layout for a rotated Tetrimino.
+     * @param newTetriminoMatrix int[][]tableaux of an already rotated Tetrimino.
+     */
     private void setNewTetriminoLayout(final int[][] newTetriminoMatrix) {
         final int[][] currentMatrix = tetrimino.getLayout();
         forEachCell(currentMatrix, (row, column) -> {
@@ -256,16 +271,13 @@ public class Mapper {
         });
     }
 
+    /**
+     * Sets a new Tetrimino container.
+     * @param tetriminoContainerToBeSet Tetrimino container which boolean values are to be set.
+     */
     void setNewTetriminoContainer(Cell[][] tetriminoContainerToBeSet) {
         setAllCells(tetriminoContainer, false);
         setAllCells(tetriminoContainerToBeSet, true);
         tetriminoContainer = tetriminoContainerToBeSet;
     }
-
-    protected int[][] getRotatedTetriminoLayoutArray(Rotation rotation) {
-        return getRotatedTetriminoLayout(rotation);
-    }
-
-
-
 }

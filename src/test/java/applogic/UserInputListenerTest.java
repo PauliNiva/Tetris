@@ -122,6 +122,38 @@ public class UserInputListenerTest {
     }
 
     @Test
+    public void rotateTetriminoCounterclockwiseWithKeys() {
+        mockGameManager.getPlayingField().getPlayingField().addNewTetriminoToField(new BlockL());
+        List<Cell> startCells = mockGameManager.getPlayingField().getPlayingField().getMapper().getTetriminoContainerAsList();
+        mockGameManager.getApp().requestFocus();
+        for (int i = 1; i <= 4; i++) {
+            robot.keyPress(KeyEvent.VK_UP);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            robot.keyRelease(KeyEvent.VK_UP);
+        }
+        assertTetriminoHasMovedWithKeys(startCells, 0, 0);
+    }
+
+    @Test
+    public void rotateTetriminoClockwiseWithKeys() {
+        mockGameManager.getPlayingField().getPlayingField().addNewTetriminoToField(new BlockL());
+        List<Cell> startCells = mockGameManager.getPlayingField().getPlayingField().getMapper().getTetriminoContainerAsList();
+        mockGameManager.getApp().requestFocus();
+        for (int i = 1; i <= 4; i++) {
+            robot.keyPress(KeyEvent.VK_DOWN);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+            }
+            robot.keyRelease(KeyEvent.VK_DOWN);
+        }
+        assertTetriminoHasMovedWithKeys(startCells, 0, 0);
+    }
+
+    @Test
     public void removeCompleteBottomRow() {
         mockGameManager.getPlayingField().getPlayingField().addNewTetriminoToField(new BlockO());
         moveTetriminoToBottom();

@@ -6,11 +6,25 @@ package main;
 public class Main {
 
     /**
-     * Obligatory main method that creates the class for game management.
+     * Starter for starting the game.
+     */
+    private static Starter starter = new Starter();
+
+    /**
+     * Main method starts the program by calling start() method from a Starter object.
      * @param args Commandline arguments that are associated with the main method.
      * @throws InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
-        new GameManager();
+        starter.start(args);
+    }
+
+
+    /**
+     * Sets the starter.
+     * @param starter
+     */
+    static void setStarter(Starter starter) {
+        Main.starter = starter;
     }
 }
