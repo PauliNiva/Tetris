@@ -35,10 +35,10 @@ public class Rotator {
             int columnCount = 0;
             for (int column = currentMatrix.length - 1; column >= 0; column--) {
                 if (rotation.equals(Rotation.ClockwiseRotation)) {
-                    rotateMatrixPositionClockwise(currentMatrix, newMatrix, rowCount, columnCount, column);
+                    rotateMatrixClockwise(currentMatrix, newMatrix, rowCount, columnCount, column);
                     columnCount++;
                 } else {
-                    rotateMatrixPositionCounterclockwise(currentMatrix, newMatrix, rowCount, columnCount, column);
+                    rotateMatrixCounterclockwise(currentMatrix, newMatrix, rowCount, columnCount, column);
                     columnCount++;
                 }
             }
@@ -55,7 +55,7 @@ public class Rotator {
      * @param columnCount number of columns that has been handled already.
      * @param column column that is to be handled.
      */
-    public void rotateMatrixPositionClockwise(int[][] currentMatrix, int[][] newMatrix, int rowCount, int columnCount, int column) {
+    public void rotateMatrixClockwise(int[][] currentMatrix, int[][] newMatrix, int rowCount, int columnCount, int column) {
         newMatrix[currentMatrix.length - 1 - columnCount][currentMatrix.length - 1 - rowCount] = currentMatrix[rowCount][column];
     }
 
@@ -67,7 +67,7 @@ public class Rotator {
      * @param columnCount number of columns that has been handled already.
      * @param column column that is to be handled.
      */
-    public void rotateMatrixPositionCounterclockwise(int[][] currentMatrix, int[][] newMatrix, int rowCount, int columnCount, int column) {
+    public void rotateMatrixCounterclockwise(int[][] currentMatrix, int[][] newMatrix, int rowCount, int columnCount, int column) {
         newMatrix[columnCount][rowCount] = currentMatrix[rowCount][column];
     }
 }

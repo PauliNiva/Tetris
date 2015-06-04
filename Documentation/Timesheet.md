@@ -33,3 +33,5 @@
 	Added a functionality for rotating the Tetrimino pieces and made few basic tests for it. Because Mapper class was getting quite inflated,
 	I refactored Rotation functionality to three classes. Some I left in mapper, actual rotation of Tetrimino containers to a new class called
 	Rotators and validation methods for rotating the piece to a new class called RotationValidator.
+- 04.06.2015 10.00 - 17.30 (7 h. 30 min.):
+	Added Mockito to the project and few mocks. Also added some JUnit tests. Updated class diagram and added two sequence diagrams.
