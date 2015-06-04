@@ -114,7 +114,7 @@ public class UserInputListenerTest {
         mockGameManager.getApp().requestFocus();
         robot.keyPress(KeyEvent.VK_RIGHT);
         try {
-            Thread.sleep(100);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
         }
         robot.keyRelease(KeyEvent.VK_RIGHT);
@@ -129,7 +129,7 @@ public class UserInputListenerTest {
         for (int i = 1; i <= 4; i++) {
             robot.keyPress(KeyEvent.VK_UP);
             try {
-                Thread.sleep(100);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
             }
             robot.keyRelease(KeyEvent.VK_UP);
@@ -145,7 +145,7 @@ public class UserInputListenerTest {
         for (int i = 1; i <= 4; i++) {
             robot.keyPress(KeyEvent.VK_DOWN);
             try {
-                Thread.sleep(100);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
             }
             robot.keyRelease(KeyEvent.VK_DOWN);
