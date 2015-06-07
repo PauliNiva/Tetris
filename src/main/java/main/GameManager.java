@@ -2,6 +2,7 @@ package main;
 
 
 import applogic.UserInputListener;
+import gui.NextTetriminoGUI;
 import gui.PlayingFieldGUI;
 
 import javax.swing.*;
@@ -17,8 +18,8 @@ public class GameManager {
 
     /**
      * Sets up a standard sized playing field and new JFrame
-     * and parameters of to it. Then adds the playing field to
-     * JFrame and starts the game.
+     * and parameters of to it. Then adds the playing field and next
+     * Tetrimino shower to the JFrame and starts the game.
      * @throws InterruptedException is thrown if Thread.sleep() method is interrupted.
      */
     public GameManager() throws InterruptedException {
@@ -26,6 +27,7 @@ public class GameManager {
         app = new JFrame();
         newApp();
         app.add(playingFieldGUI);
+        app.add(new NextTetriminoGUI(playingFieldGUI));
         start();
     }
 

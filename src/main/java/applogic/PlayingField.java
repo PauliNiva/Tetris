@@ -297,4 +297,12 @@ public class PlayingField {
     public void rotateTetriminoCounterClockwise(Rotation rotation) {
         mapper.rotateTetriminoContainer(rotation);
     }
+
+    /**
+     * Adds classes that implement TickListener to a list containing TickListeners.
+     * @param listener TickListener to be added in the list of TickListeners.
+     */
+    public void addTickListener(TickListener listener) {
+        tickListeners.add(listener);
+    }
 }
