@@ -37,3 +37,6 @@
 	Added Mockito to the project and few mocks. Also added some JUnit tests. Updated class diagram and added two sequence diagrams.
 - 07.06.2015 12.00 - 15.30 (3 h. 30 min.):
 	Added functionality to show the next Tetrimino piece that is going to appear in the playing field.
+- 08.06.2015 12.00 - 13.00 (1 h.):
+	Added the functionality for increasing the difficulty of game play. Also changed the base color of the playing field from white to gray
+	to make the Tetrimino pieces more visible.

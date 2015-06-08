@@ -21,9 +21,10 @@ public class PlayingField {
     private static final int END_ROW = 3;
     private static final int START_COLUMN = 3;
     private static final int END_COLUMN = 6;
-    private static final Color DEFAULT_EMPTY_COLOR = Color.white;
+    private static final Color DEFAULT_EMPTY_COLOR = Color.gray;
     private int rows;
     private int columns;
+    private int numberOfRemovedRows;
     private Cell[][] cellsInPlayingField;
     private Tetrimino nextTetrimino;
     private TetriminoGenerator tetriminoGenerator;
@@ -37,6 +38,7 @@ public class PlayingField {
      * @param columns how many columns there are to be in the playing field.
      */
     public PlayingField(int rows, int columns) {
+        numberOfRemovedRows = 0;
         this.rows = rows;
         this.columns = columns;
         createCells(rows, columns);
@@ -198,6 +200,8 @@ public class PlayingField {
 
     /**
      * Method that removes the complete rows from the playing field.
+     * If a row is removed, it adds one to the counter that counts the
+     * number of the rows that have been removed.
      */
     public void removeCompletedRows() {
         for (int row = 0; row < rows; row++) {
@@ -209,6 +213,7 @@ public class PlayingField {
             }
             if (rowComplete) {
                 removeRow(row);
+                numberOfRemovedRows++;
             }
         }
     }
@@ -304,5 +309,20 @@ public class PlayingField {
      */
     public void addTickListener(TickListener listener) {
         tickListeners.add(listener);
+    }
+
+    /**
+     * Gets the number of rows that has been removed since the start of the game or last reset of the number.
+     * @return number of removed rows as an int.
+     */
+    public int getNumberOfRemovedRows() {
+        return numberOfRemovedRows;
+    }
+
+    /**
+     * Resets the number of removed rows counter.
+     */
+    public void resetNumberOfRemovedRows() {
+        this.numberOfRemovedRows = 0;
     }
 }

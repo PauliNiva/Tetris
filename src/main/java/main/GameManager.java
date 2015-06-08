@@ -15,6 +15,7 @@ public class GameManager {
 
     private final PlayingFieldGUI playingFieldGUI;
     private JFrame app;
+    private int delay;
 
     /**
      * Sets up a standard sized playing field and new JFrame
@@ -28,6 +29,7 @@ public class GameManager {
         newApp();
         app.add(playingFieldGUI);
         app.add(new NextTetriminoGUI(playingFieldGUI));
+        delay = 400;
         start();
     }
 
@@ -45,16 +47,21 @@ public class GameManager {
     }
 
     /**
-     * Method that starts the game.
+     * Method that starts the game and keeps it going until game over.
+     * Additionally it checks if the difficulty level should be increased.
      * @throws InterruptedException
      */
-    private void start() throws InterruptedException {
+    public void start() throws InterruptedException {
         playingFieldGUI.addNewTetrimino();
         playingFieldGUI.repaintPlayingField();
 
         while (!playingFieldGUI.gameOver()) {
+            if (playingFieldGUI.getPlayingField().getNumberOfRemovedRows() >= 10) {
+                shortenTheDelay(); // Increases the difficulty by shortening the time that the thread sleeps.
+                playingFieldGUI.getPlayingField().resetNumberOfRemovedRows();
+            }
             playingFieldGUI.tick();
-            Thread.sleep(300);
+            Thread.sleep(delay);
         }
     }
 
@@ -64,5 +71,13 @@ public class GameManager {
      */
     public PlayingFieldGUI getPlayingField() {
         return playingFieldGUI;
+    }
+
+    /**
+     * Method that sortens the delay by 25 milliseconds. Used when level
+     * of difficulty is increased.
+     */
+    public void shortenTheDelay() {
+        this.delay = this.delay - 25;
     }
 }

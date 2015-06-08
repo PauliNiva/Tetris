@@ -15,7 +15,6 @@ Users: Player (anyone interested in playing the game).
 
 Actions of the player:
   - Moving tetrimino blocks to the left and right.
-  - Momentarily increasing the descent rate of tetrimino block.
   - Instant dropping of the tetrimino block to the bottom of the playing field.
   - Rotating tetrimino blocks 90 degrees at a time.
   - Starting a new game when an old one is finished.
@@ -25,3 +24,4 @@ Functionality of the game:
   - Score keeping.
   - Removal of full rows.
   - Showing the next tetrimo block that is going to appear in the playing field.
+  - Lifting the level of difficulty (by increasing the speed that the tetriminoes fall down the playing field) after every 10 rows removed.
