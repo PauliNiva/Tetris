@@ -14,7 +14,6 @@ import java.awt.*;
 public class CellGUI extends JPanel {
 
     private Cell cell;
-    private static final int CELL_SIZE = 100;
 
     /**
      * Creates CellGUI object for the instance of a Cell object
@@ -24,7 +23,8 @@ public class CellGUI extends JPanel {
         this.cell = cell;
         setBackground(PlayingField.getDEFAULT_EMPTY_COLOR());
         setBorder(new LineBorder(Color.black));
-        setSize(CELL_SIZE, CELL_SIZE);
+        Dimension dimension = new Dimension(25,25);
+        setPreferredSize(dimension);
         setVisible(true);
     }
 
@@ -49,13 +49,5 @@ public class CellGUI extends JPanel {
      */
     public void recolor() {
         setBackground(underlying().getColor());
-    }
-
-    /**
-     * Method to get the size of the individual cell
-     * @return size of the cell as int.
-     */
-    public static int getCELL_SIZE() {
-        return CELL_SIZE;
     }
 }

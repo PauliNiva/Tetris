@@ -24,10 +24,13 @@ public class PlayingField {
     private static final Color DEFAULT_EMPTY_COLOR = Color.gray;
     private int rows;
     private int columns;
-    private int numberOfRemovedRows;
+    private int levelCounter;
+    private int level = 1;
+    private int score = 0;
     private Cell[][] cellsInPlayingField;
     private Tetrimino nextTetrimino;
     private TetriminoGenerator tetriminoGenerator;
+    private ScoreCounter scoreCounter;
     private boolean gameOver = false;
     private Mapper mapper;
     private List<TickListener> tickListeners;
@@ -38,14 +41,15 @@ public class PlayingField {
      * @param columns how many columns there are to be in the playing field.
      */
     public PlayingField(int rows, int columns) {
-        numberOfRemovedRows = 0;
+        levelCounter = 0;
         this.rows = rows;
         this.columns = columns;
         createCells(rows, columns);
         tetriminoGenerator = new TetriminoGenerator();
         setNextTetrimino();
-        mapper = new Mapper(this);
         tickListeners = new ArrayList<>();
+        mapper = new Mapper(this);
+        scoreCounter = new ScoreCounter(this);
     }
 
     /**
@@ -204,6 +208,7 @@ public class PlayingField {
      * number of the rows that have been removed.
      */
     public void removeCompletedRows() {
+        int numberOfRowsRemoved = 0;
         for (int row = 0; row < rows; row++) {
             boolean rowComplete = true;
             for (Cell cell : getCellsInRow(row)) {
@@ -213,9 +218,12 @@ public class PlayingField {
             }
             if (rowComplete) {
                 removeRow(row);
-                numberOfRemovedRows++;
+                numberOfRowsRemoved++;
+                levelCounter++;
             }
         }
+
+        scoreCounter.updateScore(numberOfRowsRemoved);
     }
 
     /**
@@ -315,14 +323,23 @@ public class PlayingField {
      * Gets the number of rows that has been removed since the start of the game or last reset of the number.
      * @return number of removed rows as an int.
      */
-    public int getNumberOfRemovedRows() {
-        return numberOfRemovedRows;
+    public int getLevelCounter() {
+        return levelCounter;
     }
 
     /**
      * Resets the number of removed rows counter.
      */
     public void resetNumberOfRemovedRows() {
-        this.numberOfRemovedRows = 0;
+        this.levelCounter = 0;
+        level++;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public String getScore() {
+        return scoreCounter.getScore();
     }
 }

@@ -17,6 +17,5 @@ public class CellGUITest {
         Assert.assertEquals(testCellGUI.getColor(), Color.black);
         testCellGUI.recolor();
         Assert.assertEquals(testCellGUI.getColor(), Color.black);
-        Assert.assertEquals(testCellGUI.getCELL_SIZE(), 100);
     }
 }

@@ -15,6 +15,7 @@ public class GameManager {
 
     private final PlayingFieldGUI playingFieldGUI;
     private JFrame app;
+    private JLabel scoreLabel;
     private int delay;
 
     /**
@@ -29,6 +30,8 @@ public class GameManager {
         newApp();
         app.add(playingFieldGUI);
         app.add(new NextTetriminoGUI(playingFieldGUI));
+        scoreLabel = new JLabel(getScore());
+        app.add(scoreLabel);
         delay = 400;
         start();
     }
@@ -56,7 +59,8 @@ public class GameManager {
         playingFieldGUI.repaintPlayingField();
 
         while (!playingFieldGUI.gameOver()) {
-            if (playingFieldGUI.getPlayingField().getNumberOfRemovedRows() >= 10) {
+            scoreLabel.setText(getScore());
+            if (playingFieldGUI.getPlayingField().getLevelCounter() >= 10) {
                 shortenTheDelay(); // Increases the difficulty by shortening the time that the thread sleeps.
                 playingFieldGUI.getPlayingField().resetNumberOfRemovedRows();
             }
@@ -79,5 +83,13 @@ public class GameManager {
      */
     public void shortenTheDelay() {
         this.delay = this.delay - 25;
+    }
+
+    /**
+     * Method for getting the score that the player has.
+     * @return Score óf the player as int.
+     */
+    public String getScore() {
+        return this.playingFieldGUI.getPlayingField().getScore();
     }
 }

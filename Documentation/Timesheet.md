@@ -40,3 +40,5 @@
 - 08.06.2015 12.00 - 13.00 (1 h.):
 	Added the functionality for increasing the difficulty of game play. Also changed the base color of the playing field from white to gray
 	to make the Tetrimino pieces more visible.
+- 09.06.2015 13.00 - 16.00 (3 h.):
+	Added score keeping functionality to the program and some refactoring.

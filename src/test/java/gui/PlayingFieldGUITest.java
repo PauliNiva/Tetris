@@ -28,8 +28,6 @@ public class PlayingFieldGUITest {
         Assert.assertEquals(testPlayingFieldGUI.getCellGUIs().size(), 200);
         for (CellGUI cell : testPlayingFieldGUI.getCellGUIs()) {
             Assert.assertFalse(cell.underlying().getIsCellOccupied());
-            Assert.assertEquals(cell.getSize().getHeight(), CellGUI.getCELL_SIZE(), 0);
-            Assert.assertEquals(cell.getSize().getWidth(), CellGUI.getCELL_SIZE(), 0);
         }
     }
 

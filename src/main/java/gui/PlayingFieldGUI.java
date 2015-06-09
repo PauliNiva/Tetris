@@ -26,7 +26,6 @@ public class PlayingFieldGUI extends JPanel {
      */
     public PlayingFieldGUI(int rows, int columns) {
         setLayout(new GridLayout(rows, columns));
-        setSize(rows * CellGUI.getCELL_SIZE() + 50, columns * CellGUI.getCELL_SIZE() + 50);
         setBorder(new LineBorder(Color.black));
         this.playingField = new PlayingField(rows, columns);
         createCellGUIs();
