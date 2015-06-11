@@ -71,7 +71,7 @@ public class UserInputListenerTest {
         mockGameManager.getApp().requestFocus();
         robot.keyPress(KeyEvent.VK_SPACE);
         try {
-            Thread.sleep(100);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
         }
         robot.keyRelease(KeyEvent.VK_SPACE);
@@ -86,7 +86,7 @@ public class UserInputListenerTest {
         mockGameManager.getApp().requestFocus();
         robot.keyPress(KeyEvent.VK_TAB);
         try {
-            Thread.sleep(100);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
         }
         robot.keyRelease(KeyEvent.VK_TAB);
@@ -100,7 +100,7 @@ public class UserInputListenerTest {
         mockGameManager.getApp().requestFocus();
         robot.keyPress(KeyEvent.VK_LEFT);
         try {
-            Thread.sleep(100);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
         }
         robot.keyRelease(KeyEvent.VK_LEFT);
