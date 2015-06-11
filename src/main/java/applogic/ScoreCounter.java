@@ -1,19 +1,28 @@
 package applogic;
 
 /**
- * Class for counting score.
+ * Class for score counting..
  */
 public class ScoreCounter {
 
     private PlayingField playingField;
     private int score;
 
+    /**
+     * Constructor that initializes a score attribute for specified playing field.
+     * @param playingField Playing field which the score counter is associated with.
+     */
     public ScoreCounter(PlayingField playingField){
         this.playingField = playingField;
         this.score = 0;
     }
 
-    public void updateScore(int numberOfRowsRemoved) {
+    /**
+     * Method for counting the score that is going to be added. Points are given according
+     * to the amount of rows that where removed.
+     * @param numberOfRowsRemoved number of rows that where removed.
+     */
+    public void countScoreToBeAdded(int numberOfRowsRemoved) {
         switch (numberOfRowsRemoved) {
             case 1: {
                 addScore(40 * playingField.getLevel());
@@ -34,6 +43,10 @@ public class ScoreCounter {
         }
     }
 
+    /**
+     * Method for adding the calculated score to the overall score.
+     * @param scoreToBeAdded number of point to be added to the overall score.
+     */
     public void addScore(int scoreToBeAdded) {
         score += scoreToBeAdded;
     }

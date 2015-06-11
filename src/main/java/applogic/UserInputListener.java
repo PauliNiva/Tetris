@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
  */
 public class UserInputListener implements KeyListener {
 
-    private final PlayingFieldGUI playingFieldGUI;
+    private PlayingFieldGUI playingFieldGUI;
 
     /**
      * Creates the object that listens to the inputs made by user.

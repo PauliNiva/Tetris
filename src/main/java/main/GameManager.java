@@ -15,6 +15,7 @@ public class GameManager {
 
     private final PlayingFieldGUI playingFieldGUI;
     private JFrame app;
+    private JFrame askForNewGame;
     private JLabel scoreLabel;
     private int delay;
 
@@ -28,10 +29,6 @@ public class GameManager {
         playingFieldGUI = new PlayingFieldGUI(20, 10);
         app = new JFrame();
         newApp();
-        app.add(playingFieldGUI);
-        app.add(new NextTetriminoGUI(playingFieldGUI));
-        scoreLabel = new JLabel(getScore());
-        app.add(scoreLabel);
         delay = 400;
         start();
     }
@@ -42,19 +39,23 @@ public class GameManager {
     private void newApp() {
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setLayout(new FlowLayout());
-        app.setSize(500, 600);
+        app.setSize(600, 600);
         app.setLocation(800, 400);
-        app.setVisible(true);
         app.setTitle("Yet Another Tetris Clone");
         app.addKeyListener(new UserInputListener(this.playingFieldGUI));
+        app.add(playingFieldGUI);
+        app.add(new NextTetriminoGUI(playingFieldGUI));
+        scoreLabel = new JLabel(getScore());
+        app.add(scoreLabel);
     }
 
     /**
      * Method that starts the game and keeps it going until game over.
      * Additionally it checks if the difficulty level should be increased.
-     * @throws InterruptedException
+     * @throws InterruptedException Thrown if Thread.sleep() is interrupted.
      */
     public void start() throws InterruptedException {
+        app.setVisible(true);
         playingFieldGUI.addNewTetrimino();
         playingFieldGUI.repaintPlayingField();
 
@@ -67,6 +68,9 @@ public class GameManager {
             playingFieldGUI.tick();
             Thread.sleep(delay);
         }
+        app.removeAll();
+        app.dispose();
+
     }
 
     /**

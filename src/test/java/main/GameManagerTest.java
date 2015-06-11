@@ -11,10 +11,9 @@ import java.awt.*;
 public class GameManagerTest {
 
     GameManager gameManager;
-    Robot robot;
 
     @Before
-    public void createPlayingField() throws AWTException, InterruptedException {
+    public void createPlayingField() throws AWTException, InterruptedException  {
         gameManager = new GameManager();
     }
 

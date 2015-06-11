@@ -42,3 +42,7 @@
 	to make the Tetrimino pieces more visible.
 - 09.06.2015 13.00 - 16.00 (3 h.):
 	Added score keeping functionality to the program and some refactoring.
+- 11.06.2015 12.00 - 17.30 (5 h. 30 min.):
+	Updated the class the diagram and made a new sequence diagram depicting what happens when a row is completed. Also spent most of the day
+	trying to figure out how to make restarting the game convenient with swing (ergo, spent time reading about swing). I was not happy with the
+	implementation that I came up, so I decided not to push it. Will try again tomorrow with a fresh mind.

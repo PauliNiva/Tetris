@@ -15,7 +15,7 @@ public class PlayingFieldTest {
     @Before
     public void createPlayingField() {
         testField = new PlayingField(20, 10);
-        smallTestField = new PlayingField(5, 10);
+        smallTestField = new PlayingField(4, 10);
     }
 
     @Test

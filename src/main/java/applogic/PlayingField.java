@@ -126,7 +126,7 @@ public class PlayingField {
      * if not, then return value is true.
      */
     private Boolean newPieceFitsInField() {
-        for (int row = START_ROW; row <= END_ROW; row++) {
+        for (int row = START_ROW; row < END_ROW; row++) {
             for (int column = START_COLUMN; column <= END_COLUMN;  column++) {
                 if (getCell(row, column).getIsCellOccupied()) {
                     return false;
@@ -205,7 +205,10 @@ public class PlayingField {
     /**
      * Method that removes the complete rows from the playing field.
      * If a row is removed, it adds one to the counter that counts the
-     * number of the rows that have been removed.
+     * number of the rows that have been removed and also adds one to
+     * the counter that counts up to the level change.
+     * Lastly it calls score counter to add score based on the amount of
+     * rows that where removed.
      */
     public void removeCompletedRows() {
         int numberOfRowsRemoved = 0;
@@ -223,7 +226,7 @@ public class PlayingField {
             }
         }
 
-        scoreCounter.updateScore(numberOfRowsRemoved);
+        scoreCounter.countScoreToBeAdded(numberOfRowsRemoved);
     }
 
     /**
@@ -335,10 +338,18 @@ public class PlayingField {
         level++;
     }
 
+    /**
+     * Gets the current difficulty level of the game.
+     * @return the difficulty level as an int.
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Method for getting the score from score counter.
+     * @return the overall score as a string.
+     */
     public String getScore() {
         return scoreCounter.getScore();
     }
