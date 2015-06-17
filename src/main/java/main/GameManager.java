@@ -15,7 +15,6 @@ public class GameManager {
 
     private final PlayingFieldGUI playingFieldGUI;
     private JFrame app;
-    private JFrame askForNewGame;
     private JLabel scoreLabel;
     private int delay;
 
@@ -40,7 +39,6 @@ public class GameManager {
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setLayout(new FlowLayout());
         app.setSize(600, 600);
-        app.setLocation(800, 400);
         app.setTitle("Yet Another Tetris Clone");
         app.addKeyListener(new UserInputListener(this.playingFieldGUI));
         app.add(playingFieldGUI);

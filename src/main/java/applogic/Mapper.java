@@ -275,9 +275,43 @@ public class Mapper {
      * Sets a new Tetrimino container.
      * @param tetriminoContainerToBeSet Tetrimino container which boolean values are to be set.
      */
-    void setNewTetriminoContainer(Cell[][] tetriminoContainerToBeSet) {
+    private void setNewTetriminoContainer(Cell[][] tetriminoContainerToBeSet) {
         setAllCells(tetriminoContainer, false);
         setAllCells(tetriminoContainerToBeSet, true);
         tetriminoContainer = tetriminoContainerToBeSet;
+    }
+
+    /**
+     * This method is used to check collisions when rotating a Tetrimino piece.
+     * @param row where the specific cell is against the Tetrimino containers fix point.
+     * @param column where the specific cell is against the Tetrimino containers fix point.
+     * @return a specific cell from a playing field.
+     */
+    public Cell getPlayingfieldCellAt(int row, int column) {
+        return playingField.getCell(playingfieldRow(row), playingfieldColumn(column));
+    }
+
+    /**
+     * Ternary operator for deciding which cell column is where the wanted cell is.
+     * @param column column that is queried.
+     * @return If the column would go outside of playing field it returns the column closest to edge
+     * otherwise it returns the column that is parameters distance away from the Tetrimino containers
+     * fixed point.
+     */
+    private int playingfieldColumn(int column) {
+        return (columnFixPoint + column) >= playingField.getColumns() ? playingField.getColumns() - 1 :
+                (columnFixPoint + column) < 0 ? 0 : columnFixPoint + column;
+    }
+
+    /**
+     * Ternary operator for deciding which cell row is where the wanted cell is.
+     * @param row row that is queried.
+     * @return If the row would go outside of playing field it returns the row closest to edge
+     * otherwise it returns the row that is parameters distance away from the Tetrimino containers
+     * fixed point.
+     */
+    private int playingfieldRow(int row) {
+        return (rowFixPoint + row) >= playingField.getRows() ? playingField.getRows() - 1 :
+                (rowFixPoint + row) < 0 ? 0 : rowFixPoint + row;
     }
 }

@@ -46,3 +46,11 @@
 	Updated the class the diagram and made a new sequence diagram depicting what happens when a row is completed. Also spent most of the day
 	trying to figure out how to make restarting the game convenient with swing (ergo, spent time reading about swing). I was not happy with the
 	implementation that I came up, so I decided not to push it. Will try again tomorrow with a fresh mind.
+- 17.06.2015 10.00 - 19.00 (9 h.):
+	Had to study for combinatorics-exam earlier this week and on weekend, so today was supposed to be a big push day, but at a start of a day
+	I founded a bug in the program. If you pushed rotate button to bottom and kept it there, the spinning Tetrimino would eat other Tetriminoes
+	away from the playing field. So obviously there was something very wrong with the collision check when rotating the piece. Don't know how
+	that went on missed for this long. So I spent a whole day hunting that bug, instead of implementing a proper start and start again features
+	that where on my todo list. Tomorrow I have an exam and tutkijalinja-meeting. So unless a miracle happens and I find some strength after those,
+	otherwise this thing is about done.
+	

@@ -33,8 +33,8 @@ public class RotationValidator {
     public boolean rotatedTetriminoWillOccupyAnOccupiedCell(int[][] newMatrix) {
         for (int row = 0; row < newMatrix.length; row++) {
             for (int column = 0; column < newMatrix[0].length; column++) {
-                if (playingField.getCell(row, column).getIsCellOccupied() && newMatrix[row][column] == 1 &&
-                        !(mapper.getTetriminoContainerAsList().contains(playingField.getCell(row, column)))) {
+                if (mapper.getPlayingfieldCellAt(row, column).getIsCellOccupied() && newMatrix[row][column] == 1 &&
+                        !(mapper.getTetriminoContainerAsList().contains(mapper.getPlayingfieldCellAt(row, column)))) {
                     return true;
                 }
             }
