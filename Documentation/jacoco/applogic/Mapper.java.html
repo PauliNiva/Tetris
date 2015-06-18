@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Mapper.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">applogic</a> &gt; <span class="el_source">Mapper.java</span></div><h1>Mapper.java</h1><pre class="source lang-java linenums">package applogic;
+
+
+import tetriminoes.Tetrimino;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static util.ForEachCell.forEachCell;
+
+/**
+ * Class that maps the whereabouts of the Tetrimino piece in playing field.
+ */
+public class Mapper {
+
+    private PlayingField playingField;
+    private Tetrimino tetrimino;
+    private Cell[][] tetriminoContainer;
+    private Rotator rotator;
+    private RotationValidator rotationValidator;
+    int rowFixPoint; // cell at the x-coordinate 0 of the Tetrimino container.
+    int columnFixPoint; // cell at the y-coordinate 0 of the Tetrimino container.
+
+    /**
+     * Constructor that uses the current playing field as a playingField.
+     * @param playingField field which is to be mapped.
+     */
+<span class="fc" id="L28">    public Mapper(PlayingField playingField) {</span>
+<span class="fc" id="L29">        this.playingField = playingField;</span>
+<span class="fc" id="L30">        rotator = new Rotator();</span>
+<span class="fc" id="L31">    }</span>
+
+    /**
+     * Method that sets a new Tetrimino piece in the container to a playingField.
+     * @param tetrimino that is about to be placed in a conttainer and set to a playingField.
+     */
+    public void setNewTetrimino(Tetrimino tetrimino) {
+<span class="fc" id="L38">        this.tetrimino = tetrimino;</span>
+<span class="fc" id="L39">        tetriminoContainer = containerForNewTetrimino(playingField.getSTART_ROW(), playingField.getSTART_COLUMN());</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Method that makes a new container for a new Tetrimino piece.
+     * @param startRow place in rows where the container is placed.
+     * @param startColumn place in columns where the container is placed.
+     * @return Tetrimino container that has a Tetrmino inside.
+     */
+    public Cell[][] containerForNewTetrimino(int startRow, int startColumn) {
+<span class="fc" id="L49">        Cell[][] newTetriminoContainer = new Cell[4][4];</span>
+
+<span class="fc" id="L51">        rowFixPoint = startRow;</span>
+<span class="fc" id="L52">        columnFixPoint = startColumn;</span>
+
+<span class="fc" id="L54">        forEachCell(tetrimino.getLayout(), (row, column) -&gt; {</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            newTetriminoContainer[row][column] = tetrimino.getLayout()[row][column] == 0 ? null :</span>
+<span class="fc" id="L56">                    playingField.getCell(startRow + row, startColumn + column).setCellIsOccupied(tetrimino);</span>
+<span class="fc" id="L57">        });</span>
+
+<span class="fc" id="L59">        return newTetriminoContainer;</span>
+    }
+
+    /**
+     * Gets the Tetrimino container.
+     * @return Cell[][] object that acts as a Tetrimino container.
+     */
+    public Cell[][] getTetriminoContainer() {
+<span class="fc" id="L67">        return this.tetriminoContainer;</span>
+    }
+
+    /**
+     * Method for getting the cells from a Tetrimino container as a list.
+     * @return List of cells.
+     */
+    public List&lt;Cell&gt; getTetriminoContainerAsList() {
+<span class="fc" id="L75">        List&lt;Cell&gt; cellList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (Cell[] cells : tetriminoContainer) {</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            for (Cell cell : cells) {</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">                if (cell != null) cellList.add(cell);</span>
+            }
+        }
+
+<span class="fc" id="L83">        return cellList;</span>
+    }
+
+    /**
+     * Moves the Tetrimino container to a direction specified by the parameter.
+     * @param direction specifies the direction where the Tetrimino piece is to be moved.
+     */
+    public void moveTetriminoContainer(Direction direction) {
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (movementToDirectionIsValid(direction)) {</span>
+<span class="fc" id="L92">            setAllCells(tetriminoContainer, false);</span>
+
+<span class="fc" id="L94">            rowFixPoint += direction.getRowChange();</span>
+<span class="fc" id="L95">            columnFixPoint += direction.getColumnChange();</span>
+
+<span class="fc" id="L97">            forEachCell(tetriminoContainer, (row, column) -&gt; {</span>
+<span class="fc" id="L98">                tetriminoContainer[row][column] = cellInNewPosition(direction, tetriminoContainer[row][column]);</span>
+<span class="fc" id="L99">            });</span>
+        }
+<span class="fc" id="L101">    }</span>
+
+    /**
+     * Method that checks that the movement of the Tetrimino piece is valid.
+     * @param direction direction where the Tetrimino piece is moving.
+     * @return boolean value for the validity of the movement. True if valid. False if not.
+     */
+    public boolean movementToDirectionIsValid(Direction direction) {
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        for (Cell cell : getTetriminoContainerAsList()) {</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">            if (newCellIsAlreadyOccupied(direction, cell)) {</span>
+<span class="fc" id="L111">                return false;</span>
+            }
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            if (!direction.checkIfMoveIsValid(cell, this.playingField)) {</span>
+<span class="fc" id="L114">                return false;</span>
+            }
+<span class="fc" id="L116">        }</span>
+
+<span class="fc" id="L118">        return true;</span>
+    }
+
+
+    /**
+     * Gets the cell at a new position if the cell is not null.
+     * @param direction direction where the new cell is at.
+     * @param cell that is moving at the playing field.
+     * @return the moving Cell object.
+     */
+    public Cell cellInNewPosition(Direction direction, Cell cell) {
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (cell != null) {</span>
+<span class="fc" id="L130">            return playingField.getCell(cell.getRow() + direction.getRowChange(),</span>
+<span class="fc" id="L131">                    cell.getColumn() + direction.getColumnChange()).setCellIsOccupied(tetrimino);</span>
+        }
+
+<span class="fc" id="L134">        return cell;</span>
+    }
+
+    /**
+     * Sets the boolean value for all cells in a two dimensional Cell object tableux.
+     * @param cells two dimensional tableaux consisting Cell objects.
+     * @param occupied boolean value which the cells in the tableaux are to be set.
+     */
+    public void setAllCells(Cell[][] cells, boolean occupied) {
+<span class="fc" id="L143">        forEachCell(cells, (row, column) -&gt; {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            if (cells[row][column] != null) {</span>
+<span class="fc" id="L145">                cells[row][column].setCellIsOccupied(tetrimino, occupied);</span>
+            }
+<span class="fc" id="L147">        });</span>
+<span class="fc" id="L148">    }</span>
+
+    /**
+     * Method that checks if the new cell is already occupied.
+     * @param direction where the Tetrimino piece is moving.
+     * @param cell of a Tetrimino piece.
+     * @return boolean value true if the cell is already occupied by another tetrimino piece, false otherwise.
+     */
+    private boolean newCellIsAlreadyOccupied(Direction direction, Cell cell) {
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        return getMapCell(direction, cell).getIsCellOccupied() &amp;&amp;</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">                (!getTetriminoContainerAsList().contains(new Cell(newRow(direction, cell), newColumn(direction, cell))));</span>
+    }
+
+    /**
+     * Gets a Cell object from the direction where the Tetrimino piece is heading.
+     * @param direction where the Tetrimino piece is heading.
+     * @param cell that is part of the moving Tetrimino piece.
+     * @return The corresponding Cell object.
+     */
+    private Cell getMapCell(Direction direction, Cell cell) {
+<span class="fc" id="L168">        return playingField.getCell(newRow(direction, cell), newColumn(direction, cell));</span>
+    }
+
+    /**
+     * Utility method for another methods to know which column the new cell is going to be.
+     * @param direction where the cell that is part of a Tetrimino piece is heading.
+     * @param cell that is moving as a part of a moving Tetrimino piece.
+     * @return the new column as a int.
+     */
+    private int newColumn(Direction direction, Cell cell) {
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        return cell.getColumn() + direction.getColumnChange() &gt; getTotalMapColumns() - 1 ? getTotalMapColumns() - 1 :</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">                (cell.getColumn() + direction.getColumnChange() &lt; 0 ? 0 : cell.getColumn() + direction.getColumnChange());</span>
+    }
+
+    /**
+     * Utility method for another methods to know which row the new cell is going to be.
+     * @param direction where the cell that is part of a Tetrimino piece is heading.
+     * @param cell that is moving as a part of a moving Tetrimino piece.
+     * @return the new row as a int.
+     */
+    private int newRow(Direction direction, Cell cell) {
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        return cell.getRow() + direction.getRowChange() &gt; getTotalMapRows() - 1 ? getTotalMapRows() - 1 : cell.getRow() + direction.getRowChange();</span>
+    }
+
+    /**
+     * Gets to total number of of rows in playingField.
+     * @return numbers of rows in playingField as int.
+     */
+    public int getTotalMapRows() {
+<span class="fc" id="L197">        return playingField.getRows();</span>
+    }
+
+    /**
+     * Gets to total number of of columns in playingField.
+     * @return number of columns in playingField as int.
+     */
+    public int getTotalMapColumns() {
+<span class="fc" id="L205">        return playingField.getColumns();</span>
+    }
+
+    /**
+     * Gets the current Tetrimino piece.
+     * @return current Tetrimino piece.
+     */
+    public Tetrimino getTetrimino() {
+<span class="fc" id="L213">        return this.tetrimino;</span>
+    }
+
+    /**
+     * Method that initializes rotation of the Tetrimino container. First it check if the
+     * rotation is valid and then is sets up a new layout for the rotated
+     * Tetrimino as it rotates the piece at the same time and lastly it sets up a container for it.
+     * @param rotation Direction of the rotation (either clockwise or counterclockwise).
+     */
+    public void rotateTetriminoContainer(Rotation rotation) {
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">        if (rotationIsValid(rotation)) {</span>
+<span class="fc" id="L224">            setNewTetriminoLayout(getRotatedTetriminoLayout(rotation));</span>
+
+<span class="fc" id="L226">            setNewTetriminoContainer(getCellsInPlayingFieldForNewTetrimino());</span>
+        }
+<span class="fc" id="L228">    }</span>
+
+    /**
+     * Rotates the Tetrimino and gets a new layout for it after the rotation.
+     * @param rotation Direction of the rotation.
+     * @return the rotated matrix which contains the layout of the Tetrimino piece
+     * in the Tetrimino container.
+     */
+    private int[][] getRotatedTetriminoLayout(Rotation rotation) {
+<span class="fc" id="L237">            return rotator.rotate(rotation, tetrimino.getLayout());</span>
+    }
+
+    /**
+     * Gets the cells for a rotated Tetrimino container.
+     * @return new Tetrimino container that holds the rotated Tetrimino.
+     */
+    private Cell[][] getCellsInPlayingFieldForNewTetrimino() {
+<span class="fc" id="L245">        return containerForNewTetrimino(rowFixPoint, columnFixPoint);</span>
+    }
+
+    /**
+     * Method that checks if the rotation of the Tetrimino is valid. ie. rotated Tetrimino
+     * would not end up occupying an already occupied cell or would not move out of playing field
+     * bounds as a result of the rotation.
+     * @param rotation Direction of the rotation.
+     * @return boolean value true, if the rotation is valid, false otherwise.
+     */
+    private boolean rotationIsValid(Rotation rotation) {
+<span class="fc" id="L256">        rotationValidator = new RotationValidator(this.playingField, this.tetrimino, this);</span>
+<span class="fc" id="L257">        int[][] newMatrix = getRotatedTetriminoLayout(rotation);</span>
+
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">        return (!rotationValidator.tetriminoWillRotateOffPlayingfield(newMatrix) &amp;&amp;</span>
+<span class="pc bpc" id="L260" title="1 of 2 branches missed.">                !rotationValidator.rotatedTetriminoWillOccupyAnOccupiedCell(newMatrix));</span>
+    }
+
+    /**
+     * Sets a new layout for a rotated Tetrimino.
+     * @param newTetriminoMatrix int[][]tableaux of an already rotated Tetrimino.
+     */
+    private void setNewTetriminoLayout(final int[][] newTetriminoMatrix) {
+<span class="fc" id="L268">        final int[][] currentMatrix = tetrimino.getLayout();</span>
+<span class="fc" id="L269">        forEachCell(currentMatrix, (row, column) -&gt; {</span>
+<span class="fc" id="L270">            currentMatrix[row][column] = newTetriminoMatrix[row][column];</span>
+<span class="fc" id="L271">        });</span>
+<span class="fc" id="L272">    }</span>
+
+    /**
+     * Sets a new Tetrimino container.
+     * @param tetriminoContainerToBeSet Tetrimino container which boolean values are to be set.
+     */
+    private void setNewTetriminoContainer(Cell[][] tetriminoContainerToBeSet) {
+<span class="fc" id="L279">        setAllCells(tetriminoContainer, false);</span>
+<span class="fc" id="L280">        setAllCells(tetriminoContainerToBeSet, true);</span>
+<span class="fc" id="L281">        tetriminoContainer = tetriminoContainerToBeSet;</span>
+<span class="fc" id="L282">    }</span>
+
+    /**
+     * This method is used to check collisions when rotating a Tetrimino piece.
+     * @param row where the specific cell is against the Tetrimino containers fix point.
+     * @param column where the specific cell is against the Tetrimino containers fix point.
+     * @return a specific cell from a playing field.
+     */
+    public Cell getPlayingfieldCellAt(int row, int column) {
+<span class="fc" id="L291">        return playingField.getCell(playingfieldRow(row), playingfieldColumn(column));</span>
+    }
+
+    /**
+     * Ternary operator for deciding which cell column is where the wanted cell is.
+     * @param column column that is queried.
+     * @return If the column would go outside of playing field it returns the column closest to edge
+     * otherwise it returns the column that is parameters distance away from the Tetrimino containers
+     * fixed point.
+     */
+    private int playingfieldColumn(int column) {
+<span class="pc bpc" id="L302" title="2 of 4 branches missed.">        return (columnFixPoint + column) &gt;= playingField.getColumns() ? playingField.getColumns() - 1 :</span>
+                (columnFixPoint + column) &lt; 0 ? 0 : columnFixPoint + column;
+    }
+
+    /**
+     * Ternary operator for deciding which cell row is where the wanted cell is.
+     * @param row row that is queried.
+     * @return If the row would go outside of playing field it returns the row closest to edge
+     * otherwise it returns the row that is parameters distance away from the Tetrimino containers
+     * fixed point.
+     */
+    private int playingfieldRow(int row) {
+<span class="pc bpc" id="L314" title="2 of 4 branches missed.">        return (rowFixPoint + row) &gt;= playingField.getRows() ? playingField.getRows() - 1 :</span>
+                (rowFixPoint + row) &lt; 0 ? 0 : rowFixPoint + row;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

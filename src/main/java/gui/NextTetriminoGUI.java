@@ -35,8 +35,8 @@ public class NextTetriminoGUI extends JPanel implements TickListener {
         setBorder(new LineBorder(Color.black));
         cells = new ArrayList<>();
 
-        for (int row = 0; row < 4; row++){
-            for (int column = 0; column < 4; column++){
+        for (int row = 0; row < 4; row++) {
+            for (int column = 0; column < 4; column++) {
                 CellGUI cell = new CellGUI(new Cell(row, column));
                 add(cell);
                 cells.add(cell);
@@ -50,7 +50,7 @@ public class NextTetriminoGUI extends JPanel implements TickListener {
     @Override
     public void playingFieldHasTicked() {
         Tetrimino nextTetrimino = playingField.getNextTetrimino();
-        for (int row = 0; row < nextTetrimino.getLayout().length; row++){
+        for (int row = 0; row < nextTetrimino.getLayout().length; row++) {
             for (int column = 0; column < nextTetrimino.getLayout()[0].length; column++) {
                 getCellGUIAt(row, column).underlying().setCellIsOccupied(nextTetrimino, nextTetrimino.getLayout()[row][column] == 1);
                 getCellGUIAt(row, column).recolor();
@@ -65,7 +65,7 @@ public class NextTetriminoGUI extends JPanel implements TickListener {
      * @return CellGUI object that resides in the coordinates specied in the parameters.
      */
     private CellGUI getCellGUIAt(int row, int column) {
-        for (CellGUI cell : cells){
+        for (CellGUI cell : cells) {
             if (cell.underlying().getRow() == row && cell.underlying().getColumn() == column) {
                 return cell;
             }

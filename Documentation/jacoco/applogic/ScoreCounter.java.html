@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>ScoreCounter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">applogic</a> &gt; <span class="el_source">ScoreCounter.java</span></div><h1>ScoreCounter.java</h1><pre class="source lang-java linenums">package applogic;
+
+/**
+ * Class for score counting..
+ */
+public class ScoreCounter {
+
+    private PlayingField playingField;
+    private int score;
+
+    /**
+     * Constructor that initializes a score attribute for specified playing field.
+     * @param playingField Playing field which the score counter is associated with.
+     */
+<span class="fc" id="L15">    public ScoreCounter(PlayingField playingField) {</span>
+<span class="fc" id="L16">        this.playingField = playingField;</span>
+<span class="fc" id="L17">        this.score = 0;</span>
+<span class="fc" id="L18">    }</span>
+
+    /**
+     * Method for counting the score that is going to be added. Points are given according
+     * to the amount of rows that where removed.
+     * @param numberOfRowsRemoved number of rows that where removed.
+     */
+    public void countScoreToBeAdded(int numberOfRowsRemoved) {
+<span class="pc bpc" id="L26" title="3 of 5 branches missed.">        switch (numberOfRowsRemoved) {</span>
+            case 1: {
+<span class="fc" id="L28">                addScore(40 * playingField.getLevel());</span>
+<span class="fc" id="L29">                break;</span>
+            }
+            case 2: {
+<span class="nc" id="L32">                addScore(100 * playingField.getLevel());</span>
+<span class="nc" id="L33">                break;</span>
+            }
+            case 3: {
+<span class="nc" id="L36">                addScore(300 * playingField.getLevel());</span>
+<span class="nc" id="L37">                break;</span>
+            }
+            case 4: {
+<span class="nc" id="L40">                addScore(1200 * playingField.getLevel());</span>
+                break;
+            }
+        }
+<span class="fc" id="L44">    }</span>
+
+    /**
+     * Method for adding the calculated score to the overall score.
+     * @param scoreToBeAdded number of point to be added to the overall score.
+     */
+    public void addScore(int scoreToBeAdded) {
+<span class="fc" id="L51">        score += scoreToBeAdded;</span>
+<span class="fc" id="L52">    }</span>
+
+    /**
+     * Method for getting the score of the player.
+     * @return Score the player has as a String.
+     */
+    public String getScore() {
+<span class="fc" id="L59">        return &quot;Score: &quot; + this.score;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

@@ -53,4 +53,6 @@
 	that went on missed for this long. So I spent a whole day hunting that bug, instead of implementing a proper start and start again features
 	that where on my todo list. Tomorrow I have an exam and tutkijalinja-meeting. So unless a miracle happens and I find some strength after those,
 	otherwise this thing is about done.
+- 18.06.2015 08.00 - 08.45 (45 min.):
+	Made the last necessary documents, updated java docs, pit report and made a new release. Also made some checkstyle corrections.
 	

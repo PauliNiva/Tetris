@@ -23,7 +23,7 @@ public class CellGUI extends JPanel {
         this.cell = cell;
         setBackground(PlayingField.getDEFAULT_EMPTY_COLOR());
         setBorder(new LineBorder(Color.black));
-        Dimension dimension = new Dimension(25,25);
+        Dimension dimension = new Dimension(25, 25);
         setPreferredSize(dimension);
         setVisible(true);
     }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Direction.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">applogic</a> &gt; <span class="el_source">Direction.java</span></div><h1>Direction.java</h1><pre class="source lang-java linenums">package applogic;
+
+/**
+ * Enum for directions that a Tetromino piece can move to.
+ * Sub-classes implement method that check if the move is movementToDirectionIsValid
+ * and they also implement getters for the row and column changes
+ * as the piece moves.
+ */
+<span class="pc" id="L9">public enum Direction {</span>
+
+<span class="fc" id="L11">    Down {</span>
+        @Override
+        boolean checkIfMoveIsValid(Cell cell, PlayingField field) {
+<span class="fc bfc" id="L14" title="All 2 branches covered.">            return cell.getRow() != field.getRows() - 1;</span>
+        }
+        @Override
+        int getRowChange() {
+<span class="fc" id="L18">            return 1;</span>
+        }
+        @Override
+        int getColumnChange() {
+<span class="fc" id="L22">            return 0;</span>
+        }
+    },
+
+<span class="fc" id="L26">    Left {</span>
+        @Override
+        boolean checkIfMoveIsValid(Cell cell, PlayingField field) {
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            return cell.getColumn() != 0;</span>
+        }
+        @Override
+        int getRowChange() {
+<span class="fc" id="L33">            return 0;</span>
+        }
+        @Override
+        int getColumnChange() {
+<span class="fc" id="L37">            return -1;</span>
+        }
+    },
+
+<span class="fc" id="L41">    Right {</span>
+        @Override
+        boolean checkIfMoveIsValid(Cell cell, PlayingField field) {
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            return cell.getColumn() != field.getColumns() - 1;</span>
+        }
+        @Override
+        int getRowChange() {
+<span class="fc" id="L48">            return 0;</span>
+        }
+        @Override
+        int getColumnChange() {
+<span class="fc" id="L52">            return 1;</span>
+        }
+    };
+
+    abstract boolean checkIfMoveIsValid(Cell cell, PlayingField field);
+
+    abstract int getRowChange();
+
+    abstract int getColumnChange();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

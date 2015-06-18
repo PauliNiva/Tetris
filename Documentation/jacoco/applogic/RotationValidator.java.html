@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RotationValidator.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">applogic</a> &gt; <span class="el_source">RotationValidator.java</span></div><h1>RotationValidator.java</h1><pre class="source lang-java linenums">package applogic;
+
+
+import tetriminoes.Tetrimino;
+
+/**
+ * Class for validating the rotations of the Tetrimino piece.
+ */
+public class RotationValidator {
+
+    PlayingField playingField;
+    Mapper mapper;
+    Tetrimino tetrimino;
+
+    /**
+     * Creates a RotationValidator object with the currently falling Tetrimino,
+     * Playingfield and it's mapper at their current state.
+     * @param playingField PlayingField object at it's current state.
+     * @param tetrimino Tetrimino piece that is currently falling in the field.
+     * @param mapper Mapper at it's current state.
+     */
+<span class="fc" id="L22">    public RotationValidator(PlayingField playingField, Tetrimino tetrimino, Mapper mapper) {</span>
+<span class="fc" id="L23">        this.playingField = playingField;</span>
+<span class="fc" id="L24">        this.tetrimino = tetrimino;</span>
+<span class="fc" id="L25">        this.mapper = mapper;</span>
+<span class="fc" id="L26">    }</span>
+
+    /**
+     * Method that checks if the rotated Tetrimino will end up occupying an already occupied cell.
+     * @param newMatrix Matrix that contains the layout of the rotated Tetrimino container.
+     * @return boolean value true, it the cell is already occupied, false otherwise.
+     */
+    public boolean rotatedTetriminoWillOccupyAnOccupiedCell(int[][] newMatrix) {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        for (int row = 0; row &lt; newMatrix.length; row++) {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            for (int column = 0; column &lt; newMatrix[0].length; column++) {</span>
+<span class="fc bfc" id="L36" title="All 4 branches covered.">                if (mapper.getPlayingfieldCellAt(row, column).getIsCellOccupied() &amp;&amp; newMatrix[row][column] == 1 &amp;&amp;</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">                        !(mapper.getTetriminoContainerAsList().contains(mapper.getPlayingfieldCellAt(row, column)))) {</span>
+<span class="nc" id="L38">                    return true;</span>
+                }
+            }
+        }
+<span class="fc" id="L42">        return false;</span>
+    }
+
+    /**
+     * Method that checks if the rotated Tetrimino would rotate off the playingfield.
+     * @param newMatrix Matrix that contains the layout of the rotated Tetrimino container.
+     * @return boolean value true if the piece would rotate of the field, false otherwise.
+     */
+    public boolean tetriminoWillRotateOffPlayingfield(int[][] newMatrix) {
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">        return tetriminoWillRotateOffLeftEdge(newMatrix) ||</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">                tetriminoWillRotateOffRightEdge(newMatrix);</span>
+    }
+
+    /**
+     * Utility method for checking if the Tetrimino would rotate off the right edge of the playing field.
+     * @param newMatrix Matrix that contains the layout of the rotated Tetrimino container.
+     * @return boolean value true is the rotating Tetrimino would move off the field from right edge,
+     * false otherwise.
+     */
+    public boolean tetriminoWillRotateOffRightEdge(int[][] newMatrix) {
+<span class="pc bpc" id="L62" title="1 of 4 branches missed.">        return (tetriminoWillMoveToRight(newMatrix) &amp;&amp; tetriminoIsInColumn(playingField.getColumns() - 1));</span>
+    }
+
+    /**
+     * Utility method for checking if the Tetrimino would rotate off the left edge of the playing field.
+     * @param newMatrix Matrix that contains the layout of the rotated Tetrimino container.
+     * @return boolean value true is the rotating Tetrimino would move off the field from left edge,
+     * false otherwise.
+     */
+    private boolean tetriminoWillRotateOffLeftEdge(int[][] newMatrix) {
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        return (tetriminoWillMoveToLeft(newMatrix) &amp;&amp; tetriminoIsInColumn(0));</span>
+    }
+
+    /**
+     * Utility method to check if rotation would move the Tetrimino to the right.
+     * @param newMatrix int[][] tableaux of a layout of an already rotated Tetrimino.
+     * @return boolean value true, if the Tetrimino would move to the right, false otherwise.
+     */
+    private boolean tetriminoWillMoveToRight(int[][] newMatrix) {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        return matrixContainsOccupiedCellInColumn(newMatrix, 3) &amp;&amp;</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                !matrixContainsOccupiedCellInColumn(tetrimino.getLayout(), 3);</span>
+    }
+
+    /**
+     * Utility method to check if rotation would move the Tetrimino to the left.
+     * @param newMatrix int[][] tableaux of a layout of an already rotated Tetrimino.
+     * @return boolean value true, if the Tetrimino would move to the left, false otherwise.
+     */
+    private boolean tetriminoWillMoveToLeft(int[][] newMatrix) {
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        return matrixContainsOccupiedCellInColumn(newMatrix, 0) &amp;&amp;</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">                !matrixContainsOccupiedCellInColumn(tetrimino.getLayout(), 0);</span>
+    }
+
+    /**
+     * Checks if matrix contains a occupied cell in specified column.
+     * @param newMatrix int[][] tableaux that contains the cells to be checked.
+     * @param column column that is to be checked if it has any occupied matrix cells in it.
+     * @return boolean value true, if matrix has a cell in specified column, false otherwise.
+     */
+    private boolean matrixContainsOccupiedCellInColumn(int[][] newMatrix, int column) {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        for (int[] row : newMatrix) {</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">            if (row[column] == 1) {</span>
+<span class="fc" id="L104">                return true;</span>
+            }
+        }
+<span class="fc" id="L107">        return false;</span>
+    }
+
+    /**
+     * Method that checks if Tetrimino is in certain column.
+     * @param column that is to be checked if it does contain piece of Tetrimino piece.
+     * @return boolean value true if column has a piece of Tetrimino in it, otherwise false.
+     */
+    private boolean tetriminoIsInColumn(int column) {
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (Cell cell : mapper.getTetriminoContainerAsList()) {</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">            if (cell.getColumn() == column) {</span>
+<span class="nc" id="L118">                return true;</span>
+            }
+<span class="fc" id="L120">        }</span>
+<span class="fc" id="L121">        return false;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

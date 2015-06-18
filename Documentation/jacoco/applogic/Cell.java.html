@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Cell.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">applogic</a> &gt; <span class="el_source">Cell.java</span></div><h1>Cell.java</h1><pre class="source lang-java linenums">package applogic;
+
+import tetriminoes.Tetrimino;
+
+import java.awt.*;
+
+/**
+ * Class for the cells which together form the grid called the playing field.
+ */
+public class Cell {
+
+    private final int row;
+    private final int column;
+    private Color color;
+
+    private boolean cellIsOccupied;
+
+    /**
+     * Makes a new cell in a specific location as dictated by the coordinates from
+     * the parametres.
+     * @param row int that serves as an Y coordinate. That is at which row the cells place is
+     *            in the cell tableaux called the playing field.
+     * @param column int that serves as an X coordinate. That is at which column the cells place is
+     *            in the cell tableaux called the playing field
+     */
+<span class="fc" id="L26">    public Cell(int row, int column) {</span>
+<span class="fc" id="L27">        this.row = row;</span>
+<span class="fc" id="L28">        this.column = column;</span>
+<span class="fc" id="L29">        color = PlayingField.getDEFAULT_EMPTY_COLOR();</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Sets that the cell is occupied by Tetrimino block and changes the color of the cell
+     * accordingly.
+     * @param tetrimino Which kind of Tetrimino is occupying the cell.
+     * @param cellIsOccupied boolean value telling that is there a Tetromino block in the cell.
+     * @return information about the color and the occupation of the cell.
+     */
+    public Cell setCellIsOccupied(Tetrimino tetrimino, boolean cellIsOccupied) {
+<span class="fc" id="L40">        this.cellIsOccupied = cellIsOccupied;</span>
+<span class="fc bfc" id="L41" title="All 4 branches covered.">        color = ((cellIsOccupied &amp;&amp; tetrimino != null) ? tetrimino.getColor() : PlayingField.getDEFAULT_EMPTY_COLOR());</span>
+
+<span class="fc" id="L43">        return this;</span>
+    }
+
+    /**
+     * Method to set cell as occupied with one parameter.
+     * @param tetrimino piece that is occupying the cell.
+     * @return calls setCellIsOccupied method with two parameters.
+     */
+    public Cell setCellIsOccupied(Tetrimino tetrimino) {
+<span class="fc" id="L52">        return setCellIsOccupied(tetrimino, true);</span>
+    }
+
+    /**
+     * Changes the state of cell occupation (used after the piece
+     * leaves the cell).
+     * @param occupied boolean value that the cells value is to be changed.
+     * @return calls setCellIsOccupied method with two parameters.
+     */
+    public Cell setCellIsOccupied(boolean occupied) {
+<span class="fc" id="L62">        return setCellIsOccupied(null, occupied);</span>
+    }
+
+    /**
+     * Method for checking if the cell is occupied.
+     * @return boolean value telling if the cell is occupied.
+     */
+    public boolean getIsCellOccupied() {
+<span class="fc" id="L70">        return cellIsOccupied;</span>
+    }
+
+    /**
+     * Method for getting the color of the cell.
+     * @return color of the cell.
+     */
+    public Color getColor() {
+<span class="fc" id="L78">        return this.color;</span>
+    }
+
+    /**
+     * Method for setting the color of the cell.
+     * @param color which the cell is to be set.
+     */
+    public void setColor(Color color) {
+<span class="fc" id="L86">        this.color = color;</span>
+<span class="fc" id="L87">    }</span>
+
+    /**
+     * Gets the number of row.
+     * @return number of row as an int.
+     */
+    public int getRow() {
+<span class="fc" id="L94">        return this.row;</span>
+    }
+
+    /**
+     * Gets the number of column.
+     * @return number of column as an int.
+     */
+    public int getColumn() {
+<span class="fc" id="L102">        return this.column;</span>
+    }
+
+    /**
+     * Method that checks if the occupied cell belongs to the same Tetrimino piece
+     * that is moving or another.
+     * @param object Tetrimino as an object.
+     * @return boolean value true if the cell belongs to the same Tetrimino, false otherwise.
+     */
+    @Override
+    public boolean equals(Object object) {
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (this == object) {</span>
+<span class="fc" id="L114">            return true;</span>
+        }
+<span class="pc bpc" id="L116" title="2 of 4 branches missed.">        if (object == null || getClass() != object.getClass()) {</span>
+<span class="nc" id="L117">            return false;</span>
+        }
+
+<span class="fc" id="L120">        Cell cell = (Cell) object;</span>
+
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (column != cell.column) {</span>
+<span class="fc" id="L123">            return false;</span>
+        }
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        if (row != cell.row) {</span>
+<span class="fc" id="L126">            return false;</span>
+        }
+
+<span class="fc" id="L129">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

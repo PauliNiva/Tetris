@@ -12,7 +12,7 @@ public class ScoreCounter {
      * Constructor that initializes a score attribute for specified playing field.
      * @param playingField Playing field which the score counter is associated with.
      */
-    public ScoreCounter(PlayingField playingField){
+    public ScoreCounter(PlayingField playingField) {
         this.playingField = playingField;
         this.score = 0;
     }

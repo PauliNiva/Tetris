@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PlayingFieldGUI.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">gui</a> &gt; <span class="el_source">PlayingFieldGUI.java</span></div><h1>PlayingFieldGUI.java</h1><pre class="source lang-java linenums">package gui;
+
+
+import applogic.Cell;
+import applogic.PlayingField;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Class for GUI for the playing field by using JPanel.
+ */
+public class PlayingFieldGUI extends JPanel {
+
+    private PlayingField playingField;
+    private List&lt;CellGUI&gt; cellGUIs;
+
+    /**
+     * Creates a gui for the playing field and calls for the creation of
+     * CellGUI objects.
+     * @param rows number of rows that are in the playing field.
+     * @param columns number of columns that are in the playing field.
+     */
+<span class="fc" id="L27">    public PlayingFieldGUI(int rows, int columns) {</span>
+<span class="fc" id="L28">        setLayout(new GridLayout(rows, columns));</span>
+<span class="fc" id="L29">        setBorder(new LineBorder(Color.black));</span>
+<span class="fc" id="L30">        this.playingField = new PlayingField(rows, columns);</span>
+<span class="fc" id="L31">        createCellGUIs();</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Method that creates CellGUI objects for every Cell object in the
+     * playing field and stores them in an array list.
+     */
+    private void createCellGUIs() {
+<span class="fc" id="L39">        cellGUIs = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        for (Cell cell : playingField.getAllCellsInPlayingField()) {</span>
+<span class="fc" id="L42">            CellGUI cellGUI = new CellGUI(cell);</span>
+<span class="fc" id="L43">            add(cellGUI);</span>
+<span class="fc" id="L44">            cellGUIs.add(cellGUI);</span>
+<span class="fc" id="L45">        }</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Moves the game cycle(the internal clock of the game)
+     * ahead by one unit and then repaints the playing field.
+     */
+    public void tick() {
+<span class="fc" id="L53">        playingField.tick();</span>
+<span class="fc" id="L54">        repaintPlayingField();</span>
+<span class="fc" id="L55">    }</span>
+
+    /**
+     * Method for repainting the playing field.
+     */
+    public void repaintPlayingField() {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (CellGUI cell : getCellGUIs()) {</span>
+<span class="fc" id="L62">            cell.recolor();</span>
+<span class="fc" id="L63">        }</span>
+<span class="fc" id="L64">    }</span>
+
+    /**
+     * Gets the CellGUIs as a list
+     * @return list of CellGUI objects.
+     */
+    public List&lt;CellGUI&gt; getCellGUIs() {
+<span class="fc" id="L71">        return cellGUIs;</span>
+    }
+
+    /**
+     * Adds a new TetriminoPiece by calling the appropriate method from
+     * the PlayingField class.
+     */
+    public void addNewTetrimino() {
+<span class="fc" id="L79">        playingField.addNewTetrimino();</span>
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Checks if the game is over by calling appropriate method from
+     * the PlayingField class.
+     * @return boolean value true, if the game is over, false if not.
+     */
+    public boolean gameOver() {
+<span class="fc" id="L88">        return playingField.gameOver();</span>
+    }
+
+    /**
+     * Gets the playing field as a PlayingField object.
+     * @return playing field as a PlayingField object.
+     */
+    public PlayingField getPlayingField() {
+<span class="fc" id="L96">        return this.playingField;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

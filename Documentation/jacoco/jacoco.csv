@@ -1,0 +1,37 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Tetris,util,TetriminoGenerator.Tetriminoes.new TetriminoGenerator.Tetriminoes() {...},0,10,0,0,0,2,0,2,0,2
+Tetris,util,TetriminoGenerator.Tetriminoes.new TetriminoGenerator.Tetriminoes() {...},0,10,0,0,0,2,0,2,0,2
+Tetris,util,TetriminoGenerator.Tetriminoes.new TetriminoGenerator.Tetriminoes() {...},0,10,0,0,0,2,0,2,0,2
+Tetris,util,TetriminoGenerator.Tetriminoes.new TetriminoGenerator.Tetriminoes() {...},0,10,0,0,0,2,0,2,0,2
+Tetris,util,TetriminoGenerator.Tetriminoes.new TetriminoGenerator.Tetriminoes() {...},0,10,0,0,0,2,0,2,0,2
+Tetris,util,TetriminoGenerator.Tetriminoes.new TetriminoGenerator.Tetriminoes() {...},0,10,0,0,0,2,0,2,0,2
+Tetris,util,TetriminoGenerator,0,13,0,0,0,3,0,2,0,2
+Tetris,util,TetriminoGenerator.Tetriminoes.new TetriminoGenerator.Tetriminoes() {...},0,10,0,0,0,2,0,2,0,2
+Tetris,util,TetriminoGenerator.Tetriminoes,5,83,0,0,0,8,1,3,1,3
+Tetris,util,ForEachCell,3,46,0,8,1,8,1,6,1,2
+Tetris,tetriminoes,Tetrimino,0,13,0,0,0,5,0,2,0,2
+Tetris,tetriminoes,BlockT,0,34,0,0,0,7,0,3,0,3
+Tetris,tetriminoes,BlockS,0,34,0,0,0,7,0,3,0,3
+Tetris,tetriminoes,BlockZ,0,34,0,0,0,7,0,3,0,3
+Tetris,tetriminoes,BlockL,0,34,0,0,0,7,0,3,0,3
+Tetris,tetriminoes,BlockO,0,34,0,0,0,7,0,3,0,3
+Tetris,tetriminoes,BlockJ,0,34,0,0,0,7,0,3,0,3
+Tetris,tetriminoes,BlockI,0,34,0,0,0,7,0,3,0,3
+Tetris,main,Starter,5,3,0,0,2,1,1,1,1,1
+Tetris,main,GameManager,13,126,1,3,4,30,2,6,1,5
+Tetris,main,Main,3,12,0,0,1,5,1,3,1,3
+Tetris,gui,PlayingFieldGUI,0,93,0,4,0,25,0,10,0,8
+Tetris,gui,CellGUI,0,40,0,0,0,12,0,4,0,4
+Tetris,gui,NextTetriminoGUI,5,134,1,15,1,22,1,10,0,3
+Tetris,applogic,Mapper,17,476,7,37,0,76,7,44,0,29
+Tetris,applogic,UserInputListener,0,63,0,12,0,18,0,10,0,4
+Tetris,applogic,ScoreCounter,23,37,3,2,5,11,3,5,0,4
+Tetris,applogic,Direction,9,39,0,0,0,4,2,2,2,2
+Tetris,applogic,Rotator,0,97,0,6,0,19,0,8,0,5
+Tetris,applogic,RotationValidator,10,166,8,30,2,26,8,20,0,9
+Tetris,applogic,Rotation,9,29,0,0,0,3,2,2,2,2
+Tetris,applogic,Cell,2,84,2,12,1,25,2,15,0,10
+Tetris,applogic,Direction.new Direction() {...},0,21,0,2,0,4,0,5,0,4
+Tetris,applogic,PlayingField,18,367,2,30,5,93,3,44,1,30
+Tetris,applogic,Direction.new Direction() {...},0,21,0,2,0,4,0,5,0,4
+Tetris,applogic,Direction.new Direction() {...},0,17,0,2,0,4,0,5,0,4

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Tetrimino.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">tetriminoes</a> &gt; <span class="el_source">Tetrimino.java</span></div><h1>Tetrimino.java</h1><pre class="source lang-java linenums">package tetriminoes;
+
+import java.awt.*;
+
+/**
+ * Abstract class for all Tetrimino pieces.
+ */
+public abstract class Tetrimino {
+
+    /**
+     * Tableaux for holding a Tetrimino piece in, ergo Tetrimino piece holder.
+     */
+    final int[][] cells;
+
+    /**
+     * Creates a new Tetrimino blocks by first making a 4 by 4 empty tableaux and then sets
+     * the corresponding cells that are occupied by the specific Tetrimino piece to a value 1.
+     * Value 1 marks that the cell contains one block of the specified Tetrimino and 0 marks that
+     * it does not.
+     */
+<span class="fc" id="L21">    Tetrimino() {</span>
+<span class="fc" id="L22">        cells = new int[4][4];</span>
+<span class="fc" id="L23">        setTetriminoInCells();</span>
+<span class="fc" id="L24">    }</span>
+
+    /**
+     * Abstract method without an implementation that sets a specific Tetrimino inside the cell tableaux.
+     */
+    abstract void setTetriminoInCells();
+
+    /**
+     * Method that gets the layout of the Tetrimino piece inside the cell.
+     * This method is used to get the orientation of the piece inside the cells.
+     * @return cell tableaux that contains one Tetrimino piece.
+     */
+    public int[][] getLayout() {
+<span class="fc" id="L37">        return cells;</span>
+    }
+
+    /**
+     * Abstract method without an implementation that is used to get the color of a specific Tetrimino piece.
+     * Tetrimino piece colors adhere to the Tetris companys standardization.
+     * @return Color of the Tetrimino piece.
+     */
+    public abstract Color getColor();
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

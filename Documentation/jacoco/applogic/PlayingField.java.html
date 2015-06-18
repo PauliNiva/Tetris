@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PlayingField.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">applogic</a> &gt; <span class="el_source">PlayingField.java</span></div><h1>PlayingField.java</h1><pre class="source lang-java linenums">package applogic;
+
+import static applogic.Direction.*;
+import tetriminoes.Tetrimino;
+import util.TetriminoGenerator;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static util.ForEachCell.forEachCell;
+
+/**
+ * Class for the playing field used as a container for the individual cells
+ * that make up the playing field.
+ */
+public class PlayingField {
+
+    private static final int START_ROW = 0;
+    private static final int END_ROW = 3;
+    private static final int START_COLUMN = 3;
+    private static final int END_COLUMN = 6;
+<span class="fc" id="L24">    private static final Color DEFAULT_EMPTY_COLOR = Color.gray;</span>
+    private int rows;
+    private int columns;
+    private int levelCounter;
+<span class="fc" id="L28">    private int level = 1;</span>
+<span class="fc" id="L29">    private int score = 0;</span>
+    private Cell[][] cellsInPlayingField;
+    private Tetrimino nextTetrimino;
+    private TetriminoGenerator tetriminoGenerator;
+    private ScoreCounter scoreCounter;
+<span class="fc" id="L34">    private boolean gameOver = false;</span>
+    private Mapper mapper;
+    private List&lt;TickListener&gt; tickListeners;
+
+    /**
+     * Sets up the playing field.
+     * @param rows how many rows there are to be in the playing field.
+     * @param columns how many columns there are to be in the playing field.
+     */
+<span class="fc" id="L43">    public PlayingField(int rows, int columns) {</span>
+<span class="fc" id="L44">        levelCounter = 0;</span>
+<span class="fc" id="L45">        this.rows = rows;</span>
+<span class="fc" id="L46">        this.columns = columns;</span>
+<span class="fc" id="L47">        createCells(rows, columns);</span>
+<span class="fc" id="L48">        tetriminoGenerator = new TetriminoGenerator();</span>
+<span class="fc" id="L49">        setNextTetrimino();</span>
+<span class="fc" id="L50">        tickListeners = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L51">        mapper = new Mapper(this);</span>
+<span class="fc" id="L52">        scoreCounter = new ScoreCounter(this);</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Creates the cells into the playing field. Overrides a method
+     * in util.CellCallBack.
+     * @param rows number of rows that the playing field is going to have.
+     * @param columns number of columns that the playing field is going to have.
+     */
+    public void createCells(int rows, int columns) {
+<span class="fc" id="L62">        cellsInPlayingField = new Cell[rows][columns];</span>
+<span class="fc" id="L63">        forEachCell(cellsInPlayingField, (row, column) -&gt; {</span>
+<span class="fc" id="L64">            cellsInPlayingField[row][column] = (new Cell(row, column));</span>
+<span class="fc" id="L65">        });</span>
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Method for getting the number of rows in the playing field.
+     * @return number of rows in the field.
+     */
+    public int getRows() {
+<span class="fc" id="L73">        return this.rows;</span>
+    }
+
+    /**
+     * Method for getting the number of columns in the playing field.
+     * @return number of columns in the field.
+     */
+    public int getColumns() {
+<span class="fc" id="L81">        return this.columns;</span>
+    }
+
+    /**
+     * Method for getting a specified cell in the playing field.
+     * @param row at which row the specific box resides.
+     * @param column at which column the specific box resides.
+     * @return the box which resides at the corresponding coordinates.
+     */
+    public Cell getCell(int row, int column) {
+<span class="fc" id="L91">        return cellsInPlayingField[row][column];</span>
+    }
+
+    /**
+     * Method for getting all the cells that make up the playing field.
+     * @return all cells in the playing field as an arraylist.
+     */
+    public List&lt;Cell&gt; getAllCellsInPlayingField() {
+<span class="fc" id="L99">        List&lt;Cell&gt; cellList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        for (Cell[] row : cellsInPlayingField) {</span>
+<span class="fc" id="L102">            cellList.addAll(Arrays.asList(row));</span>
+        }
+
+<span class="fc" id="L105">        return cellList;</span>
+    }
+
+    /**
+     * Sets the next Tetrimino that is going to appear in the playing field.
+     */
+    public void setNextTetrimino() {
+<span class="fc" id="L112">        nextTetrimino = tetriminoGenerator.createNewTetrimino();</span>
+<span class="fc" id="L113">    }</span>
+
+    /**
+     * Gets the next Tetrimino that is going to appear in the playing field.
+     * @return Tetrimino piece that is appearing next.
+     */
+    public Tetrimino getNextTetrimino() {
+<span class="fc" id="L120">        return nextTetrimino;</span>
+    }
+
+    /**
+     * Method that checks if next Tetrimino piece fits in to the playing field.
+     * @return false, if the piece overlaps another piece when it enters the field.
+     * if not, then return value is true.
+     */
+    private Boolean newPieceFitsInField() {
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        for (int row = START_ROW; row &lt; END_ROW; row++) {</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            for (int column = START_COLUMN; column &lt;= END_COLUMN;  column++) {</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">                if (getCell(row, column).getIsCellOccupied()) {</span>
+<span class="fc" id="L132">                    return false;</span>
+                }
+            }
+        }
+
+<span class="fc" id="L137">        return true;</span>
+    }
+
+    /**
+     * Method that adds a new Tetrimino piece to the playing field if it fits in,
+     * otherwise the game ends.
+     * @param tetrimino piece that is going to be added next.
+     */
+    public void addNewTetriminoToField(Tetrimino tetrimino) {
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (newPieceFitsInField()) {</span>
+<span class="fc" id="L147">            mapper.setNewTetrimino(tetrimino);</span>
+        } else {
+<span class="fc" id="L149">            gameOver = true;</span>
+        }
+<span class="fc" id="L151">    }</span>
+
+    /**
+     * Gets the starting row where the tetrimino container appears.
+     * @return int marking the row where the tetrimino container appears.
+     */
+    public int getSTART_ROW() {
+<span class="fc" id="L158">        return START_ROW;</span>
+    }
+
+    /**
+     * Gets the starting column where the tetrimino container appears.
+     * @return int marking the column where the tetrimino container appears.
+     */
+    public int getSTART_COLUMN() {
+<span class="fc" id="L166">        return START_COLUMN;</span>
+    }
+
+    /**
+     * Gets cells from a specific row as a list.
+     * @param row from which the cells are to be put in list.
+     * @return cells from a specific row as a list.
+     */
+    private List&lt;Cell&gt; getCellsInRow(int row) {
+<span class="fc" id="L175">        List&lt;Cell&gt; cellsInRow = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L177" title="All 2 branches covered.">        for (Cell cell : cellsInPlayingField[row]) {</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">            if (cell.getRow() == row) {</span>
+<span class="fc" id="L179">                cellsInRow.add(cell);</span>
+            }
+        }
+
+<span class="fc" id="L183">        return cellsInRow;</span>
+    }
+
+    /**
+     * Method that removes a specified row.
+     * @param rowToBeRemoved that is to be removed.
+     */
+    public void removeRow(int rowToBeRemoved) {
+<span class="fc bfc" id="L191" title="All 2 branches covered.">        for (int row = rowToBeRemoved; row &gt; 0; row--) {</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">            for (Cell cell : getCellsInRow(row)) {</span>
+<span class="fc" id="L193">                Cell cellAbove = getCell(row - 1, cell.getColumn());</span>
+<span class="pc bpc" id="L194" title="1 of 2 branches missed.">                if (getMovingTetriminoContainer().contains(cellAbove)) {</span>
+<span class="nc" id="L195">                    cell.setCellIsOccupied(false);</span>
+<span class="nc" id="L196">                    cell.setColor(getDEFAULT_EMPTY_COLOR());</span>
+                } else {
+<span class="fc" id="L198">                    cell.setCellIsOccupied(cellAbove.getIsCellOccupied());</span>
+<span class="fc" id="L199">                    cell.setColor(cellAbove.getColor());</span>
+                }
+<span class="fc" id="L201">            }</span>
+        }
+<span class="fc" id="L203">    }</span>
+
+    /**
+     * Method that removes the complete rows from the playing field.
+     * If a row is removed, it adds one to the counter that counts the
+     * number of the rows that have been removed and also adds one to
+     * the counter that counts up to the level change.
+     * Lastly it calls score counter to add score based on the amount of
+     * rows that where removed.
+     */
+    public void removeCompletedRows() {
+<span class="fc" id="L214">        int numberOfRowsRemoved = 0;</span>
+<span class="fc bfc" id="L215" title="All 2 branches covered.">        for (int row = 0; row &lt; rows; row++) {</span>
+<span class="fc" id="L216">            boolean rowComplete = true;</span>
+<span class="fc bfc" id="L217" title="All 2 branches covered.">            for (Cell cell : getCellsInRow(row)) {</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">                if (!cell.getIsCellOccupied()) {</span>
+<span class="fc" id="L219">                    rowComplete = false;</span>
+                }
+<span class="fc" id="L221">            }</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">            if (rowComplete) {</span>
+<span class="fc" id="L223">                removeRow(row);</span>
+<span class="fc" id="L224">                numberOfRowsRemoved++;</span>
+<span class="fc" id="L225">                levelCounter++;</span>
+            }
+        }
+
+<span class="fc" id="L229">        scoreCounter.countScoreToBeAdded(numberOfRowsRemoved);</span>
+<span class="fc" id="L230">    }</span>
+
+    /**
+     * Method for getting the falling Tetrimino container as a list of individual cells.
+     * @return List of cells.
+     */
+    public List&lt;Cell&gt; getMovingTetriminoContainer() {
+<span class="fc" id="L237">        return mapper.getTetriminoContainerAsList();</span>
+    }
+
+    /**
+     * Moves the Tetrimino to the direction specified by a parameter.
+     * @param direction where the Tetrimino piece is to be moved.
+     */
+    public void moveTetrimino(Direction direction) {
+<span class="fc" id="L245">        mapper.moveTetriminoContainer(direction);</span>
+<span class="fc" id="L246">    }</span>
+
+    /**
+     * Gets the information if the game is over or not.
+     * @return boolean value true is the game is over, false if not.
+     */
+    public boolean gameOver() {
+<span class="fc" id="L253">        return gameOver;</span>
+    }
+
+    /**
+     * Adds a new Tetrimino piece into the playing field and
+     * set the next Tetrimino that is going to appear.
+     */
+    public void addNewTetrimino() {
+<span class="fc" id="L261">        addNewTetriminoToField(nextTetrimino);</span>
+<span class="fc" id="L262">        setNextTetrimino();</span>
+<span class="fc" id="L263">    }</span>
+
+    /**
+     * Moves the game cycle(the internal clock of the game) ahead by one unit
+     * by moving the tetrimo piece.
+     * if the the tetrimino cannot move in that given cycle, the method calls
+     * for a new Tetrimino piece and removal of completed rows.
+     * Lastly it adds marking to a list that game has gone ahead one cycle.
+     */
+    public void tick() {
+<span class="fc bfc" id="L273" title="All 2 branches covered.">        if (!mapper.movementToDirectionIsValid(Direction.Down)) {</span>
+<span class="fc" id="L274">            addNewTetrimino();</span>
+<span class="fc" id="L275">            removeCompletedRows();</span>
+        }
+
+<span class="fc" id="L278">        moveTetrimino(Down);</span>
+
+<span class="fc bfc" id="L280" title="All 2 branches covered.">        for (TickListener listener : tickListeners) {</span>
+<span class="fc" id="L281">            listener.playingFieldHasTicked();</span>
+<span class="fc" id="L282">        }</span>
+<span class="fc" id="L283">    }</span>
+
+    /**
+     * Gets the Mapper object that is associated with playing field.
+     * @return Mapper object
+     */
+    public Mapper getMapper() {
+<span class="fc" id="L290">        return this.mapper;</span>
+    }
+
+    /**
+     * Gets the default empty color.
+     * @return Color white.
+     */
+    public static Color getDEFAULT_EMPTY_COLOR() {
+<span class="fc" id="L298">        return DEFAULT_EMPTY_COLOR;</span>
+    }
+
+    /**
+     * Method that tells the mapper to rotate the Tetrimino piece clockwise.
+     * @param rotation Clockwise.
+     */
+    public void rotateTetriminoClockwise(Rotation rotation) {
+<span class="fc" id="L306">        mapper.rotateTetriminoContainer(rotation);</span>
+<span class="fc" id="L307">    }</span>
+
+    /**
+     * Method that tells the mapper to rotate the Tetrimino piece counterclockwise.
+     * @param rotation Counterclockwise.
+     */
+    public void rotateTetriminoCounterClockwise(Rotation rotation) {
+<span class="fc" id="L314">        mapper.rotateTetriminoContainer(rotation);</span>
+<span class="fc" id="L315">    }</span>
+
+    /**
+     * Adds classes that implement TickListener to a list containing TickListeners.
+     * @param listener TickListener to be added in the list of TickListeners.
+     */
+    public void addTickListener(TickListener listener) {
+<span class="fc" id="L322">        tickListeners.add(listener);</span>
+<span class="fc" id="L323">    }</span>
+
+    /**
+     * Gets the number of rows that has been removed since the start of the game or last reset of the number.
+     * @return number of removed rows as an int.
+     */
+    public int getLevelCounter() {
+<span class="fc" id="L330">        return levelCounter;</span>
+    }
+
+    /**
+     * Resets the number of removed rows counter.
+     */
+    public void resetNumberOfRemovedRows() {
+<span class="nc" id="L337">        this.levelCounter = 0;</span>
+<span class="nc" id="L338">        level++;</span>
+<span class="nc" id="L339">    }</span>
+
+    /**
+     * Gets the current difficulty level of the game.
+     * @return the difficulty level as an int.
+     */
+    public int getLevel() {
+<span class="fc" id="L346">        return level;</span>
+    }
+
+    /**
+     * Method for getting the score from score counter.
+     * @return the overall score as a string.
+     */
+    public String getScore() {
+<span class="fc" id="L354">        return scoreCounter.getScore();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameManager.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Tetris</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">GameManager.java</span></div><h1>GameManager.java</h1><pre class="source lang-java linenums">package main;
+
+
+import applogic.UserInputListener;
+import gui.NextTetriminoGUI;
+import gui.PlayingFieldGUI;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Class for managing the game of Tetris.
+ */
+public class GameManager {
+
+    private final PlayingFieldGUI playingFieldGUI;
+    private JFrame app;
+    private JLabel scoreLabel;
+    private int delay;
+
+    /**
+     * Sets up a standard sized playing field and new JFrame
+     * and parameters of to it. Then adds the playing field and next
+     * Tetrimino shower to the JFrame and starts the game.
+     * @throws InterruptedException is thrown if Thread.sleep() method is interrupted.
+     */
+<span class="fc" id="L27">    public GameManager() throws InterruptedException {</span>
+<span class="fc" id="L28">        playingFieldGUI = new PlayingFieldGUI(20, 10);</span>
+<span class="fc" id="L29">        app = new JFrame();</span>
+<span class="fc" id="L30">        newApp();</span>
+<span class="fc" id="L31">        delay = 400;</span>
+<span class="fc" id="L32">        start();</span>
+<span class="fc" id="L33">    }</span>
+
+    /**
+     * Method that sets up the JFrame parameters.
+     */
+    private void newApp() {
+<span class="fc" id="L39">        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="fc" id="L40">        app.setLayout(new FlowLayout());</span>
+<span class="fc" id="L41">        app.setSize(600, 600);</span>
+<span class="fc" id="L42">        app.setTitle(&quot;Yet Another Tetris Clone&quot;);</span>
+<span class="fc" id="L43">        app.addKeyListener(new UserInputListener(this.playingFieldGUI));</span>
+<span class="fc" id="L44">        app.add(playingFieldGUI);</span>
+<span class="fc" id="L45">        app.add(new NextTetriminoGUI(playingFieldGUI));</span>
+<span class="fc" id="L46">        scoreLabel = new JLabel(getScore());</span>
+<span class="fc" id="L47">        app.add(scoreLabel);</span>
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Method that starts the game and keeps it going until game over.
+     * Additionally it checks if the difficulty level should be increased.
+     * @throws InterruptedException Thrown if Thread.sleep() is interrupted.
+     */
+    public void start() throws InterruptedException {
+<span class="fc" id="L56">        app.setVisible(true);</span>
+<span class="fc" id="L57">        playingFieldGUI.addNewTetrimino();</span>
+<span class="fc" id="L58">        playingFieldGUI.repaintPlayingField();</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        while (!playingFieldGUI.gameOver()) {</span>
+<span class="fc" id="L61">            scoreLabel.setText(getScore());</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">            if (playingFieldGUI.getPlayingField().getLevelCounter() &gt;= 10) {</span>
+<span class="nc" id="L63">                shortenTheDelay(); // Increases the difficulty by shortening the time that the thread sleeps.</span>
+<span class="nc" id="L64">                playingFieldGUI.getPlayingField().resetNumberOfRemovedRows();</span>
+            }
+<span class="fc" id="L66">            playingFieldGUI.tick();</span>
+<span class="fc" id="L67">            Thread.sleep(delay);</span>
+        }
+<span class="fc" id="L69">        app.removeAll();</span>
+<span class="fc" id="L70">        app.dispose();</span>
+
+<span class="fc" id="L72">    }</span>
+
+    /**
+     * Gets the playing field.
+     * @return PlayingFieldGUI object.
+     */
+    public PlayingFieldGUI getPlayingField() {
+<span class="fc" id="L79">        return playingFieldGUI;</span>
+    }
+
+    /**
+     * Method that sortens the delay by 25 milliseconds. Used when level
+     * of difficulty is increased.
+     */
+    public void shortenTheDelay() {
+<span class="nc" id="L87">        this.delay = this.delay - 25;</span>
+<span class="nc" id="L88">    }</span>
+
+    /**
+     * Method for getting the score that the player has.
+     * @return Score óf the player as int.
+     */
+    public String getScore() {
+<span class="fc" id="L95">        return this.playingFieldGUI.getPlayingField().getScore();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.4.201502262128</span></div></body></html>
