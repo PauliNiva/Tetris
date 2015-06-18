@@ -13,5 +13,5 @@ Manual testing has included but was not limited to:
 
 Found bugs:
 
-FIXED   Rotating piece rotates over another piece if the occupied cell is to the side of rotating piece.
+FIXED   Rotating piece rotates over another piece if the occupied cell is to the side of rotating piece. </br>
 FIXED   Wildly rotating piece sometimes eats another pieces away from the playing field. 
