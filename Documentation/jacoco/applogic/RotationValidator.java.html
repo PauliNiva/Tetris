@@ -49,7 +49,30 @@ public class RotationValidator {
      */
     public boolean tetriminoWillRotateOffPlayingfield(int[][] newMatrix) {
 <span class="pc bpc" id="L51" title="1 of 2 branches missed.">        return tetriminoWillRotateOffLeftEdge(newMatrix) ||</span>
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">                tetriminoWillRotateOffRightEdge(newMatrix);</span>
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">                tetriminoWillRotateOffRightEdge(newMatrix) ||</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">                tetriminoWillRotateOffBottom();</span>
+    }
+
+    /**
+     * Method that checks if the Tetrimino piece is about to rotate of the bottom of the playing field.
+     * @return True, it is going to rotate of the bottom, false otherwise.
+     */
+    public boolean tetriminoWillRotateOffBottom() {
+<span class="fc" id="L61">        return (tetriminoIsInRow(playingField.getRows() - 1));</span>
+    }
+
+    /**
+     * Method to check if the Tetrimino container is in specified row.
+     * @param row in the playing field that is checked that if container is in it.
+     * @return True, if TetriminoContainer is in the specified row, false otherwise.
+     */
+    private boolean tetriminoIsInRow(int row) {
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (Cell cell : mapper.getTetriminoContainerAsList()) {</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">            if (cell.getRow() == row) {</span>
+<span class="nc" id="L72">                return true;</span>
+            }
+<span class="fc" id="L74">        }</span>
+<span class="fc" id="L75">        return false;</span>
     }
 
     /**
@@ -59,7 +82,7 @@ public class RotationValidator {
      * false otherwise.
      */
     public boolean tetriminoWillRotateOffRightEdge(int[][] newMatrix) {
-<span class="pc bpc" id="L62" title="1 of 4 branches missed.">        return (tetriminoWillMoveToRight(newMatrix) &amp;&amp; tetriminoIsInColumn(playingField.getColumns() - 1));</span>
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">        return (tetriminoWillMoveToRight(newMatrix) &amp;&amp; tetriminoIsInColumn(playingField.getColumns() - 1));</span>
     }
 
     /**
@@ -69,7 +92,7 @@ public class RotationValidator {
      * false otherwise.
      */
     private boolean tetriminoWillRotateOffLeftEdge(int[][] newMatrix) {
-<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        return (tetriminoWillMoveToLeft(newMatrix) &amp;&amp; tetriminoIsInColumn(0));</span>
+<span class="pc bpc" id="L95" title="1 of 4 branches missed.">        return (tetriminoWillMoveToLeft(newMatrix) &amp;&amp; tetriminoIsInColumn(0));</span>
     }
 
     /**
@@ -78,8 +101,8 @@ public class RotationValidator {
      * @return boolean value true, if the Tetrimino would move to the right, false otherwise.
      */
     private boolean tetriminoWillMoveToRight(int[][] newMatrix) {
-<span class="fc bfc" id="L81" title="All 2 branches covered.">        return matrixContainsOccupiedCellInColumn(newMatrix, 3) &amp;&amp;</span>
-<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                !matrixContainsOccupiedCellInColumn(tetrimino.getLayout(), 3);</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        return matrixContainsOccupiedCellInColumn(newMatrix, 3) &amp;&amp;</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">                !matrixContainsOccupiedCellInColumn(tetrimino.getLayout(), 3);</span>
     }
 
     /**
@@ -88,8 +111,8 @@ public class RotationValidator {
      * @return boolean value true, if the Tetrimino would move to the left, false otherwise.
      */
     private boolean tetriminoWillMoveToLeft(int[][] newMatrix) {
-<span class="fc bfc" id="L91" title="All 2 branches covered.">        return matrixContainsOccupiedCellInColumn(newMatrix, 0) &amp;&amp;</span>
-<span class="pc bpc" id="L92" title="1 of 2 branches missed.">                !matrixContainsOccupiedCellInColumn(tetrimino.getLayout(), 0);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">        return matrixContainsOccupiedCellInColumn(newMatrix, 0) &amp;&amp;</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                !matrixContainsOccupiedCellInColumn(tetrimino.getLayout(), 0);</span>
     }
 
     /**
@@ -99,12 +122,12 @@ public class RotationValidator {
      * @return boolean value true, if matrix has a cell in specified column, false otherwise.
      */
     private boolean matrixContainsOccupiedCellInColumn(int[][] newMatrix, int column) {
-<span class="fc bfc" id="L102" title="All 2 branches covered.">        for (int[] row : newMatrix) {</span>
-<span class="fc bfc" id="L103" title="All 2 branches covered.">            if (row[column] == 1) {</span>
-<span class="fc" id="L104">                return true;</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        for (int[] row : newMatrix) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">            if (row[column] == 1) {</span>
+<span class="fc" id="L127">                return true;</span>
             }
         }
-<span class="fc" id="L107">        return false;</span>
+<span class="fc" id="L130">        return false;</span>
     }
 
     /**
@@ -113,12 +136,12 @@ public class RotationValidator {
      * @return boolean value true if column has a piece of Tetrimino in it, otherwise false.
      */
     private boolean tetriminoIsInColumn(int column) {
-<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (Cell cell : mapper.getTetriminoContainerAsList()) {</span>
-<span class="pc bpc" id="L117" title="1 of 2 branches missed.">            if (cell.getColumn() == column) {</span>
-<span class="nc" id="L118">                return true;</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        for (Cell cell : mapper.getTetriminoContainerAsList()) {</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">            if (cell.getColumn() == column) {</span>
+<span class="nc" id="L141">                return true;</span>
             }
-<span class="fc" id="L120">        }</span>
-<span class="fc" id="L121">        return false;</span>
+<span class="fc" id="L143">        }</span>
+<span class="fc" id="L144">        return false;</span>
     }
 
 }
