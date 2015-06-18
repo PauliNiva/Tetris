@@ -55,4 +55,6 @@
 	otherwise this thing is about done.
 - 18.06.2015 08.00 - 08.45 (45 min.):
 	Made the last necessary documents, updated java docs, pit report and made a new release. Also made some checkstyle corrections.
+- 18.05.2015 11.55 - 12.45 (50 min.):
+	Found another bug and squashed it.
 	

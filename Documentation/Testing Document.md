@@ -14,4 +14,6 @@ Manual testing has included but was not limited to:
 Found bugs:
 
 FIXED   Rotating piece rotates over another piece if the occupied cell is to the side of rotating piece. </br>
-FIXED   Wildly rotating piece sometimes eats another pieces away from the playing field. 
+FIXED   Wildly rotating piece sometimes eats another pieces away from the playing field. </br>
+FIXED   Wildly rotating piece would occasionally break and end up occupying more cells than it initially contained, when
+        the piece hitted the bottom of the playing field.

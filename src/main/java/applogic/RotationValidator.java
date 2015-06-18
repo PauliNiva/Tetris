@@ -49,7 +49,30 @@ public class RotationValidator {
      */
     public boolean tetriminoWillRotateOffPlayingfield(int[][] newMatrix) {
         return tetriminoWillRotateOffLeftEdge(newMatrix) ||
-                tetriminoWillRotateOffRightEdge(newMatrix);
+                tetriminoWillRotateOffRightEdge(newMatrix) ||
+                tetriminoWillRotateOffBottom();
+    }
+
+    /**
+     * Method that checks if the Tetrimino piece is about to rotate of the bottom of the playing field.
+     * @return True, it is going to rotate of the bottom, false otherwise.
+     */
+    public boolean tetriminoWillRotateOffBottom() {
+        return (tetriminoIsInRow(playingField.getRows() - 1));
+    }
+
+    /**
+     * Method to check if the Tetrimino container is in specified row.
+     * @param row in the playing field that is checked that if container is in it.
+     * @return True, if TetriminoContainer is in the specified row, false otherwise.
+     */
+    private boolean tetriminoIsInRow(int row) {
+        for (Cell cell : mapper.getTetriminoContainerAsList()) {
+            if (cell.getRow() == row) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
